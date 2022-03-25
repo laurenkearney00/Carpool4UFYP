@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.carpool4ufyp">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Carpool4UFYP">
+        <activity
+            android:name=".DisplayDrivers"
+            android:exported="false" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".ViewPassengers"
+            android:exported="false"
+            android:label="@string/title_activity_view_passengers" />
+        <activity
+            android:name=".PassengersLocation"
+            android:exported="false" />
+        <activity
+            android:name=".ViewMessages"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayPassengers"
+            android:exported="false" />
+        <activity
+            android:name=".MessagePassenger"
+            android:exported="false" />
+        <activity
+            android:name=".MessagePassengerAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".MessageDriverAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".MessageDriver"
+            android:exported="false" />
+        <activity
+            android:name=".MyAdapter2"
+            android:exported="false" />
+        <activity
+            android:name=".DriversLocation"
+            android:exported="false" />
+        <activity
+            android:name=".ViewDrivers"
+            android:exported="false"
+            android:label="@string/title_activity_maps4" />
+        <activity
+            android:name=".WeatherUpdate"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayCar"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileDriver"
+            android:exported="false" />
+        <activity
+            android:name=".ViewCarDetails"
+            android:exported="false" />
+        <activity
+            android:name=".PassengerOptions"
+            android:exported="false" />
+        <activity
+            android:name=".DriverOptions"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterCar"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterPassenger"
+            android:exported="false" />
+        <activity
+            android:name=".ProfilePassenger"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterDriver"
+            android:exported="false" />
+        <activity
+            android:name=".UserDriver"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpPassenger"
+            android:exported="true" />
+        <activity
+            android:name=".SignUpDriver"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

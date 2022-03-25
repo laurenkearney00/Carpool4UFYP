@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Carpool4U</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_google_maps">GoogleMapsActivity</string>
+    <string name="title_activity_maps2">MapsActivity2</string>
+    <string name="title_activity_map_drivers">MapDrivers</string>
+    <string name="title_activity_maps3">MapsActivity3</string>
+    <string name="title_activity_maps4">MapsActivity4</string>
+    <string name="title_activity_maps5">MapsActivity5</string>
+    <string name="title_activity_view_passengers">ViewPassengers</string>
+</resources>

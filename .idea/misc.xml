@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/drawable-v24/borderlayout.xml" value="0.1361111111111111" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/drawable/message.xml" value="0.1" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/drawable/message_back_other.xml" value="0.1" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/drawable/undraw_order_ride_re_372k.xml" value="0.1" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_car_adapter.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_chat_functionality.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_discussion.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_discussion2.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_car.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_car_details.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_driver.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_drivers.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_info.xml" value="0.18796296296296297" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_notes.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_display_passengers.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_driver_options.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_drivers_location.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_forgot_password.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_google_map.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_google_maps.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location2.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location3.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location4.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location5.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_main4.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_make_notes.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_map_drivers.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_maps.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_maps4.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_message_adapter.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_message_adapter2.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_my_adapter.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_my_adapter2.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_my_adapter3.xml" value="0.1015625" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_location.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_options.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_requests.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passengers_location.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_profile.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_profile_driver.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_profile_passenger.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_register_car.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_register_driver.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_register_passenger.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_send_driver_request.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_send_passenger_message.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_shared_preferences.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_sign_up_driver.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_sign_up_passenger.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_signupdriverandpassenger.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_user.xml" value="0.17407407407407408" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_user_driver.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_user_passenger.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_view_car_details.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_view_messages.xml" value="0.203125" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_view_passengers.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_weather_update.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/border.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/chat.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/item_car.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/item_driver.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/item_drivers.xml" value="1.3035714285714286" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/item_message.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/item_note.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/item_passengers.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/left_chat.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/right_chat.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/view_drivers.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/menu/context_menu_driver.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/menu/context_menu_passenger.xml" value="0.19537037037037036" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/menu/menu_item.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/menu/option_menu_driver.xml" value="0.22" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/menu/option_menu_passenger.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2375" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2375" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

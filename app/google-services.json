@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256597197127",
+    "project_id": "carpool4u-fyp",
+    "storage_bucket": "carpool4u-fyp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256597197127:android:706a73c52de8d68be04c62",
+        "android_client_info": {
+          "package_name": "com.example.carpool4u_fyp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256597197127-k3uhun6d2v6o818tqnulak2r7i9lqepl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAn_CaKcJTA7JaYKmJ9fFgm61aKrrPzKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256597197127-k3uhun6d2v6o818tqnulak2r7i9lqepl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

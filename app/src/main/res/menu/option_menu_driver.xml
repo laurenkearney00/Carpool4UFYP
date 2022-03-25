@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/profileDriver"
+        android:icon="@drawable/ic_launcher_foreground"
+        android:orderInCategory="80"
+        android:title="View Profile"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/displayCar"
+        android:icon="@drawable/icons8_carpool_48"
+        android:orderInCategory="80"
+        android:title="View Car Details"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/weatherUpdate"
+        android:orderInCategory="80"
+        android:title="View Current Weather"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/map"
+        android:orderInCategory="80"
+        android:title="View Passengers On Maps"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/locationsettings"
+        android:orderInCategory="60"
+        android:title="Location Settings"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/passengers"
+        android:orderInCategory="60"
+        android:title="Message Passengers"
+        app:showAsAction="never" />
+
+</menu>

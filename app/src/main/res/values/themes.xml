@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Carpool4UFYP" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#277065</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">#082B25</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#082B25</item>
+        <item name="colorSecondaryVariant">#082B25</item>
+        <item name="android:windowBackground">@color/gray</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

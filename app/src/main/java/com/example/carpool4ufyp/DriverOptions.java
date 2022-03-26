@@ -95,12 +95,6 @@ public class DriverOptions extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (item.getItemId() == R.id.map) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this, ViewPassengers.class);
-            startActivity(intent);
-        }
-
         if (item.getItemId() == R.id.locationsettings) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, DriversLocation.class);

@@ -209,16 +209,6 @@ public class DriversLocation extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!isChecked) {
-                    editor.putBoolean(SWITCH1, false);
-                    mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                }
-            }
-        });
-
         editor.putBoolean(SWITCH1, switch1.isChecked());
 
         editor.apply();

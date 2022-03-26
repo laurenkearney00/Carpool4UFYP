@@ -32,13 +32,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ViewPassengers"
-            android:exported="false"
-            android:label="@string/title_activity_view_passengers" />
-        <activity
-            android:name=".PassengersLocation"
-            android:exported="false" />
-        <activity
             android:name=".ViewMessages"
             android:exported="false" />
         <activity

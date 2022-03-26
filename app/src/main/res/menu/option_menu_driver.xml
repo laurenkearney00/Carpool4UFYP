@@ -20,12 +20,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/map"
-        android:orderInCategory="80"
-        android:title="View Passengers On Maps"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/locationsettings"
         android:orderInCategory="60"
         android:title="Location Settings"

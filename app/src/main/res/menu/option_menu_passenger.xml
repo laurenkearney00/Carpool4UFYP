@@ -18,12 +18,6 @@
         android:title="View Drivers on Maps"
         app:showAsAction="never" />
     <item
-        android:id="@+id/passengerLocation"
-        android:orderInCategory="80"
-        android:title="Location Settings"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/passengers"
         android:orderInCategory="60"
         android:title="Message Drivers"

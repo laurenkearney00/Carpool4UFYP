@@ -95,11 +95,7 @@ public class PassengerOptions extends AppCompatActivity {
             Intent intent = new Intent(this, ViewDrivers.class);
             startActivity(intent);
         }
-        if (item.getItemId() == R.id.passengerLocation) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this, PassengersLocation.class);
-            startActivity(intent);
-        }
+
         if (item.getItemId() == R.id.passengers) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this,DisplayDrivers.class);

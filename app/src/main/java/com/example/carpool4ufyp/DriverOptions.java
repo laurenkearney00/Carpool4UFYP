@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class DriverOptions extends AppCompatActivity {
 
+    public static final String KEY1 = "passengername";
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
@@ -116,7 +117,8 @@ public class DriverOptions extends AppCompatActivity {
                             if (userProfile != null) {
                                 passenger = userProfile.fullName;
 // create pending intent
-                                Intent intent = new Intent(getApplicationContext(), DisplayPassengers.class);
+                                Intent intent = new Intent(getApplicationContext(), MessagePassenger.class);
+                                intent.putExtra(KEY1, sender);
                                 PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                                         0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 // in case there is no pending intent/action, remove setContentIntent
@@ -208,11 +210,6 @@ public class DriverOptions extends AppCompatActivity {
         if (item.getItemId() == R.id.locationsettings) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, DriversLocation.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.passengers) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this,DisplayPassengers.class);
             startActivity(intent);
         }
         return true;

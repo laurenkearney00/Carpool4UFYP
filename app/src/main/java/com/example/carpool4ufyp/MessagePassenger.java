@@ -64,7 +64,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
         Intent intent = getIntent();
         //driverName = intent.getStringExtra(ViewDrivers.KEY2);
-        receiver = intent.getStringExtra(PassengerAdapter.MESSAGE_KEY3);
+        receiver = intent.getStringExtra(DriverOptions.KEY1);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Passengers");
         reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -177,7 +177,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
                         Toast.makeText(MessagePassenger.this, "Message sent to passenger", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                         MessageDriver.myAdapter.addItemtoEnd(message);
-                        Intent intent = new Intent(MessagePassenger.this, DisplayPassengers.class);
+                        Intent intent = new Intent(MessagePassenger.this, PassengerOptions.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(MessagePassenger.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();

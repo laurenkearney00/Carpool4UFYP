@@ -25,10 +25,5 @@
         android:title="Location Settings"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/passengers"
-        android:orderInCategory="60"
-        android:title="Message Passengers"
-        app:showAsAction="never" />
 
 </menu>

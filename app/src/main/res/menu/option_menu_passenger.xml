@@ -17,10 +17,5 @@
         android:orderInCategory="80"
         android:title="View Drivers on Maps"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/passengers"
-        android:orderInCategory="60"
-        android:title="Message Drivers"
-        app:showAsAction="never" />
 
 </menu>

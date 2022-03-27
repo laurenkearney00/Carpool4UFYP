@@ -1,6 +1,7 @@
 package com.example.carpool4ufyp;
 
 
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +34,7 @@ import java.util.Calendar;
 
 public class MessageDriver extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String CHANNEL_ID = "ID";
     private FirebaseAuth mAuth1;
     private Button messageButton;
     private EditText messageString;
@@ -161,6 +165,24 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
             timestamp = simpleDateFormat.format(calendar.getTime());
 
+            DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
+            String notificationID = DB.push().getKey();
+            Notification notification = new Notification(text, receiver, sender, timestamp);
+
+            FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Notifications")
+                    .child(notificationID)
+                    .setValue(notification).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MessageDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    } else
+                        Toast.makeText(MessageDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            });
+
             Message message = new Message(text, receiver, sender, timestamp);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages")
@@ -179,6 +201,7 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
                     }
 
             });
+
 
         }
     }

@@ -11,6 +11,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.jar.Attributes;
 
 public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback {
 
@@ -168,6 +170,24 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                             Double latitude1 = currentLocation.getLat();
                             Double longitude1 = currentLocation.getLng();
                             String userID = currentLocation.getUserID();
+                            reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
+                            reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    UserDriver userProfile = snapshot.getValue(UserDriver.class);
+
+                                    if (userProfile != null) {
+                                        name = userProfile.fullName;
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(ViewDrivers.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+
 
 
                             //String brandName=currentLocation.getBrandName();
@@ -175,10 +195,26 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                             LatLng latLng = new LatLng(latitude1, longitude1);
                             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             //Now lets add updated markers
-
                             //lets add updated marker
                             allMarkers[i] = mMap.addMarker(new MarkerOptions()
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).title(userID));
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).title("Driver's Name: " + name));
+                            allMarkers[i].showInfoWindow();
+
+                            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(@NonNull Marker marker) {
+                                    //Toast.makeText(MapsActivity4.this, marker.getTitle(),Toast.LENGTH_LONG).show();
+                                    //String receiver = marker.getTitle();
+                                    String receiver = userID;
+                                    Intent i = new Intent(ViewDrivers.this, MessageDriver.class);
+                                    i.putExtra(KEY, receiver);
+                                    //i.putExtra(KEY2, name);
+                                    startActivity(i);
+                                    return false;
+                                }
+
+                            });
+
 
 
                         } catch (Exception ex) {
@@ -196,42 +232,6 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
 
             }
         });
-        marker();
     }
 
-    public void marker() {
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                //Toast.makeText(MapsActivity4.this, marker.getTitle(),Toast.LENGTH_LONG).show();
-                String receiver = marker.getTitle();
-                /*
-                reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
-                reference.child(driverID).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) { //every time change data the event listener will execute ondatachangemethod
-                        UserDriver userDriver = snapshot.getValue(UserDriver.class);
-
-                        if (userDriver != null) {
-                            name = userDriver.fullName;
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(ViewDrivers.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                 */
-                Intent i = new Intent(ViewDrivers.this, MessageDriver.class);
-                i.putExtra(KEY, receiver);
-                //i.putExtra(KEY2, name);
-                startActivity(i);
-                return false;
-            }
-
-        });
-
-    }
 }

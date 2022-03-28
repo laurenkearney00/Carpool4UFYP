@@ -166,6 +166,24 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
             timestamp = simpleDateFormat.format(calendar.getTime());
 
+            DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
+            String notificationID = DB.push().getKey();
+            Notification notification = new Notification(text, receiver, sender, timestamp);
+
+            FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(receiver).child("Notifications")
+                    .child(notificationID)
+                    .setValue(notification).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(MessagePassenger.this, "Message sent to passenger", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                    } else
+                        Toast.makeText(MessagePassenger.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
+                }
+
+            });
+
             Message message = new Message(text, receiver, sender, timestamp);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(sender).child("Messages")

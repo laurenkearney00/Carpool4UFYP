@@ -20,37 +20,6 @@
             android:layout_height="89dp"
             android:layout_weight="1"></View>
 
-        <EditText
-            android:id="@+id/etCity"
-            android:layout_width="304dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Enter City Name"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <EditText
-            android:id="@+id/etCountry"
-            android:layout_width="304dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Enter Country Code (Optional)"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
-
-        <Button
-            android:id="@+id/btnGet"
-            android:layout_width="304dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="#277065"
-            android:onClick="getWeatherDetails"
-            android:text="Get"
-            android:textColor="@android:color/white"
-            app:backgroundTint="@null" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="150dp">

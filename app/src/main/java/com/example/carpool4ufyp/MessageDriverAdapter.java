@@ -117,6 +117,13 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
         notifyItemInserted(list.size());
     }
 
+
+    public void updateList(ArrayList<Message> list) {
+        list.clear();
+        //list.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemViewType(int position) {
         String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();

@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,7 +38,7 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
 
     private static final String CHANNEL_ID = "ID";
     private FirebaseAuth mAuth1;
-    private Button messageButton;
+    private ImageView messageButton;
     private EditText messageString;
     private ProgressBar progressBar;
     String receiver;
@@ -57,10 +59,10 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
 
         mAuth1 = FirebaseAuth.getInstance();
 
-        messageButton = (Button) findViewById(R.id.messageButton);
+        messageButton = (ImageView) findViewById(R.id.messageButton);
         messageButton.setOnClickListener(this);
 
-        EditText itemtext = (EditText) findViewById(R.id.edittxt_item);
+        TextView itemtext = (TextView) findViewById(R.id.edittxt_item);
 
         messageString = (EditText) findViewById(R.id.message);
 
@@ -87,6 +89,10 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(MessageDriver.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
+        showChat();
+    }
+
+    public void showChat() {
 
 
         mRecyclerView = findViewById(R.id.my_recycler_view);
@@ -193,9 +199,13 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
                     if (task.isSuccessful()) {
                         Toast.makeText(MessageDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
+                        //MessageDriver.myAdapter.addItemtoEnd(message);
                         MessageDriver.myAdapter.addItemtoEnd(message);
-                        Intent intent = new Intent(MessageDriver.this, ViewDrivers.class);
-                        startActivity(intent);
+                        MessageDriver.myAdapter.updateList(list);
+                        showChat();
+
+                        //Intent intent = new Intent(MessageDriver.this, ViewDrivers.class);
+                        //startActivity(intent);
                     } else
                         Toast.makeText(MessageDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                     }

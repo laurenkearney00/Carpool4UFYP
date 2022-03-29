@@ -14,7 +14,7 @@
         android:layout_height="53dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="#91f1f1f1"
+        android:background="#91F1F1F1"
         android:orientation="horizontal"
         android:paddingBottom="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.949">
-
 
         <EditText
             android:id="@+id/message"
@@ -35,52 +34,73 @@
             android:layout_weight="0.72"
             android:ems="10"
             android:maxHeight="80dp"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:hint="Type a message..." />
 
-        <Button
+        <ImageView
             android:id="@+id/messageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:text="Send"
-            android:textColor="#FFFFFF" />
+            android:layout_width="65dp"
+            android:layout_height="57dp"
+            android:background="@color/teal_700"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.786"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.072"
+            app:srcCompat="@android:drawable/ic_menu_send" />
+
+
     </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
         android:layout_centerInParent="true"
         android:visibility="gone"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
-    <EditText
+    <TextView
         android:id="@+id/edittxt_item"
-        android:layout_width="319dp"
+        android:layout_width="223dp"
         android:layout_height="53dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.622"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.092" />
+        app:layout_constraintVertical_bias="0.106" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="55dp"
+        android:layout_height="41dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.098"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.092"
+        app:srcCompat="@drawable/icons8_driver_24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
-        android:layout_width="314dp"
-        android:layout_height="299dp"
+        android:layout_width="331dp"
+        android:layout_height="367dp"
         android:layout_marginTop="12dp"
+        android:scrollbars="vertical"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

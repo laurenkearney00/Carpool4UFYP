@@ -4,10 +4,13 @@ package com.example.carpool4ufyp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +35,7 @@ import java.util.Calendar;
 public class MessagePassenger extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth1;
-    private Button messageButton;
+    private ImageView messageButton;
     private EditText messageString;
     private ProgressBar progressBar;
     String receiver;
@@ -45,7 +48,6 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
     private String timestamp;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +55,10 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
         mAuth1 = FirebaseAuth.getInstance();
 
-        messageButton = (Button) findViewById(R.id.messageButton);
+        messageButton = (ImageView) findViewById(R.id.messageButton);
         messageButton.setOnClickListener(this);
 
-        EditText itemtext = (EditText) findViewById(R.id.edittxt_item);
+        TextView itemtext = (TextView) findViewById(R.id.edittxt_item);
 
         messageString = (EditText) findViewById(R.id.message);
 
@@ -83,6 +85,10 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(MessagePassenger.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
+        showChat();
+    }
+
+    public void showChat() {
 
 
         mRecyclerView = findViewById(R.id.my_recycler_view);
@@ -194,9 +200,11 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
                     if (task.isSuccessful()) {
                         Toast.makeText(MessagePassenger.this, "Message sent to passenger", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
-                        MessageDriver.myAdapter.addItemtoEnd(message);
-                        Intent intent = new Intent(MessagePassenger.this, PassengerOptions.class);
-                        startActivity(intent);
+                        MessagePassenger.myAdapter.addItemtoEnd(message);
+                        MessagePassenger.myAdapter.updateList(list);
+                        showChat();
+                       // Intent intent = new Intent(MessagePassenger.this, PassengerOptions.class);
+                       // startActivity(intent);
                     } else {
                         Toast.makeText(MessagePassenger.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                     }

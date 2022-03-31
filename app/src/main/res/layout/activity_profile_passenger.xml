@@ -21,17 +21,29 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.144"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.026" />
+        app:layout_constraintVertical_bias="0.027" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="66dp"
+        android:layout_height="59dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.063"
+        app:srcCompat="@drawable/icons8_passenger_50" />
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="55dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginLeft="156dp"
+        android:layout_marginTop="128dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="text"
@@ -42,10 +54,10 @@
 
     <EditText
         android:id="@+id/phoneNumber"
-        android:layout_width="200dp"
-        android:layout_height="53dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="156dp"
+        android:layout_marginTop="112dp"
         android:ems="10"
         android:hint="Phone Number (0xx xxx xxxx)"
         android:inputType="number"
@@ -56,10 +68,10 @@
 
     <Button
         android:id="@+id/update"
-        android:layout_width="200dp"
-        android:layout_height="49dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="64dp"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="156dp"
+        android:layout_marginTop="84dp"
         android:backgroundTint="#277065"
         android:text="Update "
         android:textColor="#ffffff"
@@ -75,10 +87,10 @@
         android:text="Name:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.364" />
+        app:layout_constraintVertical_bias="0.367" />
 
     <TextView
         android:id="@+id/number"
@@ -87,9 +99,22 @@
         android:text="Phone Number:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.122"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.551" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

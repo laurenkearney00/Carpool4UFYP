@@ -16,6 +16,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ViewCarDetails extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference reference;
@@ -24,6 +29,7 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
     private Button updateDetails;
     private TextView banner;
     private int position;
+    private String timestamp;
 
 
     @Override
@@ -71,12 +77,16 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, DriverOptions.class));
                 break;
             case R.id.update:
-                updateDetails();
+                try {
+                    updateDetails();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
 
-    private void updateDetails() {
+    private void updateDetails() throws ParseException {
         Intent intent = getIntent();
         String carID = intent.getStringExtra(CarAdapter.MESSAGE_KEY8);
         EditText licenceNumberEditText = (EditText) findViewById(R.id.licenceNumberTxt);
@@ -103,17 +113,24 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
 
         DisplayCar.myAdapter.UpdateCar(position, car);
 
-
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
-
-
-        if (!licenceNumberString.isEmpty()) {
+        if (licenceNumberString.isEmpty()) {
+            licenceNumberEditText.setError("Licence Number is required!");
+            licenceNumberEditText.requestFocus();
+            return;
+        }
+        else if (!licenceNumberString.matches("[0-9]{9}")) {
+            licenceNumberEditText.setError("Valid licence number must have 9 number digits!");
+            licenceNumberEditText.requestFocus();
+            return;
+        }
+        else {
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
             fireDB.child("licenceNumber").setValue(licenceNumberString).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ViewCarDetails.this, "Update successful", Toast.LENGTH_LONG).show();
+                public void onSuccess(Void aVoid) {      // Write was successful
+                    Toast.makeText(ViewCarDetails.this, "Update for licence number is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -122,16 +139,26 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                             Toast.LENGTH_LONG).show();
                 }
             });
-            this.finish();
+            //this.finish();
+        }
+        if (registrationNumberString.isEmpty()) {
+            registrationNumberEditText.setError("Registration is required!");
+            registrationNumberEditText.requestFocus();
+            return;
         }
 
+        else if (!registrationNumberString.matches("[0-9]{2,3}[A-Z]{1,2}[0-9]{5}")) {
+            registrationNumberEditText.setError("Valid registration number must have format 131MH12345/131D12345!");
+            registrationNumberEditText.requestFocus();
+            return;
+        }
 
-        if (!registrationNumberString.isEmpty()) {
+        else {
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
             fireDB.child("registrationNumber").setValue(registrationNumberString).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ViewCarDetails.this, "Update successful", Toast.LENGTH_LONG).show();
+                Toast.makeText(ViewCarDetails.this, "Update for registration number is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -140,15 +167,21 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                             Toast.LENGTH_LONG).show();
                 }
             });
-            this.finish();
+            //this.finish();
         }
 
-        if (!numberOfSeatsString.isEmpty()) {
+        if (numberOfSeatsString.isEmpty()) {
+            numberOfSeatsEditText.setError("Number of seats are required!");
+            numberOfSeatsEditText.requestFocus();
+            return;
+        }
+
+        else {
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
             fireDB.child("numberOfSeats").setValue(numberOfSeatsString).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ViewCarDetails.this, "Update successful", Toast.LENGTH_LONG).show();
+                   Toast.makeText(ViewCarDetails.this, "Update for number of seats is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -157,15 +190,39 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                             Toast.LENGTH_LONG).show();
                 }
             });
-            this.finish();
+            //this.finish();
         }
 
-        if (!licenceExpirationString.isEmpty()) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        timestamp = simpleDateFormat.format(calendar.getTime());
+        licenceExpirationString = licenceExpirationEditText.getText().toString();
+
+        if (licenceExpirationString.isEmpty()) {
+            licenceExpirationEditText.setError("Licence expiration is required!");
+            licenceExpirationEditText.requestFocus();
+            return;
+        }
+
+        if (!licenceExpirationString.matches("[0-9]{2}[/][0-9]{2}[/][0-9]{4}")) {
+            licenceExpirationEditText.setError("Valid licence expiration must have format 22/07/2022!");
+            licenceExpirationEditText.requestFocus();
+            return;
+        }
+        Date date1 =  simpleDateFormat.parse(licenceExpirationString);
+        Date date2 =  simpleDateFormat.parse(timestamp);
+        if (date1.compareTo(date2) < 0) {
+            licenceExpirationEditText.setError("Date must be greater than current date!");
+            licenceExpirationEditText.requestFocus();
+            return;
+        }
+
+        else {
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
             fireDB.child("licenceExpiration").setValue(licenceExpirationString).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ViewCarDetails.this, "Update successful", Toast.LENGTH_LONG).show();
+                 Toast.makeText(ViewCarDetails.this, "Update for licence expiration is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -174,15 +231,21 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                             Toast.LENGTH_LONG).show();
                 }
             });
-            this.finish();
+            //this.finish();
         }
 
-        if (!makeAndModelString.isEmpty()) {
+        if (makeAndModelString.isEmpty()) {
+            makeAndModelEditText.setError("Make and Model is required!");
+            makeAndModelEditText.requestFocus();
+            return;
+        }
+
+        else {
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
             fireDB.child("makeAndModel").setValue(makeAndModelString).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ViewCarDetails.this, "Update successful", Toast.LENGTH_LONG).show();
+                  Toast.makeText(ViewCarDetails.this, "Update for make and model is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -191,15 +254,21 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                             Toast.LENGTH_LONG).show();
                 }
             });
-            this.finish();
+            //this.finish();
         }
 
-        if (!colourString.isEmpty()) {
+        if (colourString.isEmpty()) {
+            colourEditText.setError("Colour of car is required!");
+            colourEditText.requestFocus();
+            return;
+        }
+
+        else {
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(userID).child("Cars").child(carID);
             fireDB.child("colour").setValue(colourString).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ViewCarDetails.this, "Update successful", Toast.LENGTH_LONG).show();
+                  Toast.makeText(ViewCarDetails.this, "Update for colour is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -208,7 +277,7 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
                             Toast.LENGTH_LONG).show();
                 }
             });
-            this.finish();
+            //this.finish();
         }
 
         Intent i = new Intent(ViewCarDetails.this, DriverOptions.class);

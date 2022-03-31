@@ -40,6 +40,7 @@ import java.util.List;
 
 public class WeatherUpdate extends AppCompatActivity {
     TextView tvResult;
+    TextView tvLocation;
     private final String url = "https://api.openweathermap.org/data/2.5/weather";
     private final String appid = "18f3c1e254c9b5f8c5b410f3157e3d89";
     DecimalFormat df = new DecimalFormat("#.##");
@@ -60,6 +61,7 @@ public class WeatherUpdate extends AppCompatActivity {
 
 
         tvResult = findViewById(R.id.tvResult);
+        tvLocation = findViewById(R.id.tvLocation);
         getLocation();
     }
 
@@ -89,8 +91,9 @@ public class WeatherUpdate extends AppCompatActivity {
         }
 
         public void displayLocation(LatLng latlng){
+            Geocoder coder = new Geocoder( this );
 
-               // Toast.makeText(getApplicationContext(), "lat " + latlng.longitude, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), "lat " + latlng.longitude, Toast.LENGTH_SHORT).show();
                 String tempUrl = "";
                 tempUrl = url + "?lat=" + latlng.latitude //e.g. 53.2906 - lat
                         + "&lon=" + latlng.longitude //e.g. -6.3064 - lng
@@ -115,10 +118,20 @@ public class WeatherUpdate extends AppCompatActivity {
                             JSONObject jsonObjectClouds = jsonResponse.getJSONObject("clouds");
                             String clouds = jsonObjectClouds.getString("all");
                             JSONObject jsonObjectSys = jsonResponse.getJSONObject("sys");
-                            //   String countryName = jsonObjectSys.getString("country");
-                            //   String cityName = jsonResponse.getString("name");
-                            tvResult.setTextColor(Color.rgb(68, 134, 199));
-                            output += "Current weather " //+ cityName + " (" + countryName + ")"
+                            String countryName = jsonObjectSys.getString("country");
+                            String cityName = jsonResponse.getString("name");
+                            //tvResult.setTextColor(Color.rgb(68, 134, 199));
+
+                            try {
+                                List<Address> locations =  coder.getFromLocation(latlng.latitude,
+                                        latlng.longitude, 1);
+                                if (locations != null) {
+                                    String add1 = locations.get(0).getAddressLine(0);
+                                    String location = "";
+                                    location = "Location: " + add1;
+                                    tvLocation.setText(location);
+                                    output +=
+                                     "\n \n Current weather for " + cityName + " (" + countryName + ")"
                                     + "\n Temp: " + df.format(temp) + " °C"
                                     + "\n Feels Like: " + df.format(feelsLike) + " °C"
                                     + "\n Humidity: " + humidity + "%"
@@ -127,6 +140,10 @@ public class WeatherUpdate extends AppCompatActivity {
                                     + "\n Cloudiness: " + clouds + "%"
                                     + "\n Pressure: " + pressure + " hPa";
                             tvResult.setText(output);
+                                }
+                            }catch (IOException e){
+                                e.printStackTrace();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

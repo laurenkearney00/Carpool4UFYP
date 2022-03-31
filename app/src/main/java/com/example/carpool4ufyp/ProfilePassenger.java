@@ -93,8 +93,8 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Passengers").child(userID);
             fireDB.child("fullName").setValue(username).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
-                public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ProfilePassenger.this, "Update successful", Toast.LENGTH_LONG).show();
+                public void onSuccess(Void aVoid) {   // Write was successful!
+                    Toast.makeText(ProfilePassenger.this, "Update for name is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -105,8 +105,14 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
             });
 
         }
-        if (number.isEmpty() && !number.matches("[0][0-9]{9}")) {
-            phoneNumber.setError("Number is required and correct format for phone number is: 0xx xxx xxxx!");
+        if (number.isEmpty()) {
+            phoneNumber.setError("Phone number is required!");
+            phoneNumber.requestFocus();
+            return;
+
+        }
+        else if (!number.matches("[0][0-9]{9}")) {
+            phoneNumber.setError("Correct format for phone number is: 0xx xxx xxxx");
             phoneNumber.requestFocus();
             return;
         }
@@ -116,7 +122,7 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
             fireDB.child("phoneNumber").setValue(number).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ProfilePassenger.this, "Update successful", Toast.LENGTH_LONG).show();
+                   Toast.makeText(ProfilePassenger.this, "Update for phone number is successful", Toast.LENGTH_LONG).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

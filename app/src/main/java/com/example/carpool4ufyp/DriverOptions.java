@@ -54,7 +54,7 @@ public class DriverOptions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(DriverOptions.this, SignUpDriver.class));
+                startActivity(new Intent(DriverOptions.this, MainActivity.class));
             }
         });
 

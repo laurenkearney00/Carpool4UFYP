@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PassengerOptions extends AppCompatActivity {
 
+    public static final String KEY1 = "DriverID";
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
@@ -52,7 +53,7 @@ public class PassengerOptions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(PassengerOptions.this, SignUpPassenger.class));
+                startActivity(new Intent(PassengerOptions.this, MainActivity.class));
             }
         });
 
@@ -115,8 +116,8 @@ public class PassengerOptions extends AppCompatActivity {
                             if (userProfile != null) {
                                 driver = userProfile.fullName;
 // create pending intent
-                                Intent intent = new Intent(getApplicationContext(), ViewDrivers.class);
-                               // intent.putExtra(KEY1, sender);
+                                Intent intent = new Intent(getApplicationContext(), ChatDriver.class);
+                                intent.putExtra(KEY1, sender);
                                 PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
                                         0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 // in case there is no pending intent/action, remove setContentIntent

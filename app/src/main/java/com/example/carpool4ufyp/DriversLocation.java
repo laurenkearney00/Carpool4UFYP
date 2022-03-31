@@ -77,9 +77,9 @@ public class DriversLocation extends AppCompatActivity {
             //editor.commit();
             getLocation();
         }
-       else {
-           check();
-       }
+        else {
+            check();
+        }
 
     }
 
@@ -139,12 +139,8 @@ public class DriversLocation extends AppCompatActivity {
                 lng = locationResult.getLastLocation().getLongitude();
                 currentlocation = new LatLng(lat, lng);
                 saveCurrentLocation(currentlocation);
-
             }
-
-
         }, null);
-
          */
     }
 
@@ -184,7 +180,6 @@ public class DriversLocation extends AppCompatActivity {
                     else {
                         getLocation();
                     }
-
  */
                 } else {
                     Toast.makeText(DriversLocation.this, "Failed!", Toast.LENGTH_LONG).show();
@@ -219,5 +214,4 @@ public class DriversLocation extends AppCompatActivity {
 
     }
 }
-
 

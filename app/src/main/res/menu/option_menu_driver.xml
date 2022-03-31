@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/weatherUpdate"
+        android:icon="@drawable/sun_icon"
+        android:orderInCategory="80"
+        android:title="View Current Weather"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/profileDriver"
         android:icon="@drawable/ic_launcher_foreground"
         android:orderInCategory="80"
@@ -13,11 +19,6 @@
         android:orderInCategory="80"
         android:title="View Car Details"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/weatherUpdate"
-        android:orderInCategory="80"
-        android:title="View Current Weather"
-        app:showAsAction="never" />
 
     <item
         android:id="@+id/locationsettings"

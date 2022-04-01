@@ -1,10 +1,10 @@
 package com.example.carpool4ufyp;
 
 
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,12 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,19 +44,28 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
     private ProgressBar progressBar;
     String receiver;
     public ArrayList<Message> list = new ArrayList<>();
-    DatabaseReference databaseReference, reference;
+    DatabaseReference databaseReference, reference, databaseRef;
     ProgressDialog progressDialog;
     RecyclerView mRecyclerView;
     EditText editText;
     public static ChatDriverAdapter myAdapter;
     private String timestamp;
-
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    TextView messagetv;
+    Button remove, cancel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_driver);
+
+        messagetv = (TextView) findViewById(R.id.messagetv);
+
+        remove = (Button) findViewById(R.id.remove);
+        cancel = (Button) findViewById(R.id.cancel);
+
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -64,7 +74,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
         TextView itemtext = (TextView) findViewById(R.id.edittxt_item);
 
-        messageString = (EditText) findViewById(R.id.message);
+        messageString = (EditText) findViewById(R.id.messagetv);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -141,6 +151,121 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
             }
         });
+        myAdapter.setOnItemClickListener(new ItemClickListener() {
+            @Override
+            public void OnItemClick(int position, Message message) {
+                builder = new AlertDialog.Builder(ChatDriver.this);
+                message.getMessage();
+                builder.setTitle("Message Info");
+                builder.setCancelable(false);
+                View view = LayoutInflater.from(ChatDriver.this).inflate(R.layout.message_dialog, null, false);
+                // InitUpdateDialog(position,view);
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                remove = view.findViewById(R.id.remove);
+                cancel = view.findViewById(R.id.cancel);
+
+                String messageID = message.getMessageID();
+
+                databaseRef = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages").child(messageID);
+                databaseRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                           // Toast.makeText(ChatDriver.this, "Message" + message.getMessage(), Toast.LENGTH_SHORT).show();
+                            messagetv.setText(message.getMessage());
+
+                        }
+
+
+                        myAdapter.notifyDataSetChanged();
+
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        progressDialog.dismiss();
+
+                    }
+                });
+
+                remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        myAdapter.remove(position);
+                        Toast.makeText(ChatDriver.this, "Message Removed", Toast.LENGTH_SHORT).show();
+
+                        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages");
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                    dataSnapshot.getRef().removeValue();
+
+
+                                }
+
+
+                                myAdapter.notifyDataSetChanged();
+
+                                progressDialog.dismiss();
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                                progressDialog.dismiss();
+
+                            }
+                        });
+                    }
+                });
+
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+
+
+
+    }
+    private void InitUpdateDialog(final int position, View view) {
+
+        remove = view.findViewById(R.id.remove);
+        cancel = view.findViewById(R.id.cancel);
+
+        messagetv = (TextView) findViewById(R.id.messagetv);
+        //messagetv.setText(message.getMessage());
+
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                myAdapter.remove(position);
+                Toast.makeText(ChatDriver.this,"Message Removed",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 
 
@@ -189,7 +314,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
             });
 
-            Message message = new Message(text, receiver, sender, timestamp);
+            Message message = new Message(text, receiver, sender, timestamp, messageID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages")
                     .child(messageID)

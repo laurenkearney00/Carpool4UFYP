@@ -126,6 +126,7 @@ public class PassengerOptions extends AppCompatActivity {
                                         .setSmallIcon(android.R.drawable.stat_notify_chat)
                                         .setContentTitle(driver)
                                         .setContentText(text)
+                                        .setAutoCancel(true)
                                         .setContentIntent(pendingIntent);
                                 NotificationManagerCompat notificationManager =
                                         NotificationManagerCompat.from(getApplicationContext());

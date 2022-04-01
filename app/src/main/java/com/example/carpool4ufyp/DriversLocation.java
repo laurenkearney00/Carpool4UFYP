@@ -52,6 +52,8 @@ public class DriversLocation extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
+    private static final int GPS_TIME_INTERVAL = 60000; // get gps location every 1 min
+
 
 
 //added userid to current location
@@ -112,8 +114,9 @@ public class DriversLocation extends AppCompatActivity {
                     0);
         }
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(60000); //updates every minute
+        //mLocationRequest.setInterval(10000);
+        //mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mFusedLocationClient = new FusedLocationProviderClient(getApplicationContext());
         mLocationCallback = new LocationCallback() {
@@ -128,8 +131,7 @@ public class DriversLocation extends AppCompatActivity {
 
 
         };
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-
+        mFusedLocationClient.requestLocationUpdates( mLocationRequest, mLocationCallback, null);
         /*
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, new LocationCallback() {
             @Override
@@ -204,8 +206,13 @@ public class DriversLocation extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        /*
         editor.putBoolean(SWITCH1, switch1.isChecked());
+        if(sharedPreferences.getBoolean(SWITCH1, false)) {
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+        }
 
+         */
         editor.apply();
         editor.commit();
 

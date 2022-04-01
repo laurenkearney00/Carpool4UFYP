@@ -1,12 +1,10 @@
 package com.example.carpool4ufyp;
 
 
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,8 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -64,7 +60,7 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
 
         TextView itemtext = (TextView) findViewById(R.id.edittxt_item);
 
-        messageString = (EditText) findViewById(R.id.message);
+        messageString = (EditText) findViewById(R.id.messagetv);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -189,7 +185,7 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
 
             });
 
-            Message message = new Message(text, receiver, sender, timestamp);
+            Message message = new Message(text, receiver, sender, timestamp, messageID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages")
                     .child(messageID)

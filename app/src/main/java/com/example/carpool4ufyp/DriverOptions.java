@@ -127,6 +127,7 @@ public class DriverOptions extends AppCompatActivity {
                                         .setSmallIcon(android.R.drawable.stat_notify_chat)
                                         .setContentTitle(passenger)
                                         .setContentText(text)
+                                        .setAutoCancel(true)
                                         .setContentIntent(pendingIntent);
                                 NotificationManagerCompat notificationManager =
                                         NotificationManagerCompat.from(getApplicationContext());

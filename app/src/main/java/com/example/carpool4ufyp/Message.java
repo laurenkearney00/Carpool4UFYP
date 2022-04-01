@@ -5,6 +5,7 @@ public class Message {
     private String sender;
     private String receiver;
     private String timestamp;
+    private String messageID;
 
     public Message(){
 
@@ -21,6 +22,15 @@ public class Message {
     public String getReceiver() {
         return receiver;
     }
+
+    public String getMessageID() {
+        return messageID;
+    }
+
+    public void setMessageID(String messageID) {
+        this.messageID = messageID;
+    }
+
 
     public void setSender(String sender) {
         this.sender = sender;
@@ -42,11 +52,12 @@ public class Message {
         this.message = message;
     }
 
-    public Message(String message, String receiver, String sender, String timestamp) {
+    public Message(String message, String receiver, String sender, String timestamp, String messageID) {
         this.message = message;
         this.receiver = receiver;
         this.sender = sender;
         this.timestamp = timestamp;
+        this.messageID = messageID;
     }
 
 

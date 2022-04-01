@@ -61,6 +61,7 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
     private DatabaseReference passenger;
     private DatabaseReference reference;
     private String name;
+    //private String driverIDgb;
 
 
     @Override
@@ -113,6 +114,7 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                     0);
         }
         mMap.setMyLocationEnabled(true);
+        mMap.setTrafficEnabled(true);
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(5000);
@@ -208,6 +210,12 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                             //lets add updated marker
                             allMarkers[i] = mMap.addMarker(new MarkerOptions()
                                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).title(driverID));
+                            //driverIDgb = driverID;
+
+                            //allMarkers[i] = mMap.addMarker(new MarkerOptions()
+                               //     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng));
+                            //mMap.setTrafficEnabled(true);
+
                             //  allMarkers[i] = mMap.addMarker(new MarkerOptions()
                             //        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).title(driverID));
 
@@ -260,7 +268,7 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
         final Button buttonSend = (Button) dialogView.findViewById(R.id.buttonSend);
 
         String userID = marker.getTitle();
-
+        //String userID = driverIDgb;
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -278,7 +286,7 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                         @Override
                         public void onClick(View v) {
                             String receiver = marker.getTitle();
-                            //String receiver = driverID;
+                            //String receiver = driverIDgb;
                             Intent i = new Intent(ViewDrivers.this, MessageDriver.class);
                             i.putExtra(KEY, receiver);
                             //i.putExtra(KEY2, name);

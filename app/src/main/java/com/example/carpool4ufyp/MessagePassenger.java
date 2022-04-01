@@ -4,9 +4,7 @@ package com.example.carpool4ufyp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -60,7 +58,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
         TextView itemtext = (TextView) findViewById(R.id.edittxt_item);
 
-        messageString = (EditText) findViewById(R.id.message);
+        messageString = (EditText) findViewById(R.id.messagetv);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -190,7 +188,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
             });
 
-            Message message = new Message(text, receiver, sender, timestamp);
+            Message message = new Message(text, receiver, sender, timestamp, messageID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(sender).child("Messages")
                     .child(messageID)

@@ -14,8 +14,13 @@ import java.util.ArrayList;
 
 public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.MyViewHolder> {
     private ArrayList<Message> list;
+    ItemClickListener itemClickListener;
     private static final int MSG_TYPE_LEFT=0;
     private static final int MSG_TYPR_RIGHT=1;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
 
 
     // Provide a reference to the views for each data item
@@ -40,6 +45,7 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
         public void onClick (View view){
             int position = this.getLayoutPosition();
             String message = list.get(position).getMessage();
+            //itemClickListener.OnItemClick(position,list);
 
         }
     }
@@ -96,6 +102,12 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
 
         }
 
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemClickListener.OnItemClick(position, message);
+            }
+        });
 
     }
 
@@ -136,7 +148,10 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
     }
 
 
-
+    public void remove(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+    }
 
 
 

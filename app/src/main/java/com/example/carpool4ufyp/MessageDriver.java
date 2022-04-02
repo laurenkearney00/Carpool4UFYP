@@ -4,7 +4,9 @@ package com.example.carpool4ufyp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -12,10 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +37,6 @@ import java.util.Calendar;
 
 public class MessageDriver extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String CHANNEL_ID = "ID";
     private FirebaseAuth mAuth1;
     private ImageView messageButton;
     private EditText messageString;
@@ -45,13 +49,19 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
     EditText editText;
     public static MessageDriverAdapter myAdapter;
     private String timestamp;
-
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    Button remove, cancel;
+    private String messageID;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_driver);
+
+        remove = (Button) findViewById(R.id.remove);
+        cancel = (Button) findViewById(R.id.cancel);
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -65,7 +75,6 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        //driverName = intent.getStringExtra(ViewDrivers.KEY2);
         receiver = intent.getStringExtra(ViewDrivers.KEY);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
@@ -137,6 +146,60 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
 
             }
         });
+
+        myAdapter.setOnItemClickListener(new ItemClickListener() {
+            @Override
+            public void OnItemClick(int position, Message message) {
+                builder = new AlertDialog.Builder(MessageDriver.this);
+                message.getMessage();
+                builder.setTitle(message.getMessage());
+                builder.setCancelable(false);
+                View view = LayoutInflater.from(MessageDriver.this).inflate(R.layout.message_dialog, null, false);
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                messageID = message.getMessageID();
+
+                remove = view.findViewById(R.id.remove);
+                cancel = view.findViewById(R.id.cancel);
+
+                remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        delete();
+                    }
+                });
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
+    }
+
+    private void delete() {
+        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiver).child("Messages").child(messageID);
+        fireDB.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {      // Write was successful!
+                Toast.makeText(MessageDriver.this, "Removal successful", Toast.LENGTH_LONG).show();
+                MessageDriver.myAdapter.updateList(list);
+                showChat();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {// Write failed
+                Toast.makeText(MessageDriver.this, "Removal failed",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
 
@@ -195,13 +258,10 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
                     if (task.isSuccessful()) {
                         Toast.makeText(MessageDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
-                        //MessageDriver.myAdapter.addItemtoEnd(message);
                         MessageDriver.myAdapter.addItemtoEnd(message);
                         MessageDriver.myAdapter.updateList(list);
                         showChat();
 
-                        //Intent intent = new Intent(MessageDriver.this, ViewDrivers.class);
-                        //startActivity(intent);
                     } else
                         Toast.makeText(MessageDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                     }
@@ -213,12 +273,3 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
     }
 
 }
-
-
-
-
-
-
-
-
-

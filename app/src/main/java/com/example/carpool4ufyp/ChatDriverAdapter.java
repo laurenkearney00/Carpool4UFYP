@@ -26,18 +26,12 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
     // Provide a reference to the views for each data item
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textView;
-        public TextView textView2;
-        public TextView textView3;
-        public TextView textView4;
 
 
         public MyViewHolder(View itemView) {
             super(itemView); //itemView corresponds to all views defined in row layout
 
             textView = itemView.findViewById(R.id.textView);
-            textView2 = itemView.findViewById(R.id.textView2);
-            textView3 = itemView.findViewById(R.id.textView3);
-            textView4 = itemView.findViewById(R.id.textView4);
             itemView.setOnClickListener(this);
         }
 
@@ -45,7 +39,6 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
         public void onClick (View view){
             int position = this.getLayoutPosition();
             String message = list.get(position).getMessage();
-            //itemClickListener.OnItemClick(position,list);
 
         }
     }
@@ -83,14 +76,7 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
         Message message = list.get(position);
 
         holder.textView.setText("  " + message.getMessage() + "\n" + "  " + message.getTimestamp());
-        //holder.textView2.setText(" ");
-        //holder.textView2.setText("Driver's ID: " + message.getDriverID());
-        // holder.textView3.setText(" ");
-        //holder.textView3.setText("Passenger's ID: " + message.getPassengerID());
-        //holder.textView4.setText(message.getSender());
-        //holder.textView4.setText("(" + message.getTimestamp() + ")");
 
-        //if(holder.textView.getText().equals(sender)) {
         if(message.getSender().equals(sender)) {
             holder.textView.setBackgroundResource(R.drawable.sender);
             holder.textView.setTextColor(Color.BLACK);
@@ -115,13 +101,6 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
     @Override
     public int getItemCount() {
         return list.size();
-        //return mylistvalues.size();
-    }
-
-    public void filterList(ArrayList<Message> filteredList) {
-        list = filteredList;
-        notifyDataSetChanged();
-
     }
 
     public void addItemtoEnd(Message message){ //these functions are user-defined
@@ -132,7 +111,6 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
 
     public void updateList(ArrayList<Message> list) {
         list.clear();
-        //list.addAll(list);
         notifyDataSetChanged();
     }
 

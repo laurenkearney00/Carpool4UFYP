@@ -14,30 +14,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
     public class MessagePassengerAdapter extends RecyclerView.Adapter<MessagePassengerAdapter.MyViewHolder> {
         private ArrayList<Message> list;
+        ItemClickListener itemClickListener;
         private static final int MSG_TYPE_LEFT=0;
         private static final int MSG_TYPR_RIGHT=1;
-        public static final String MESSAGE_KEY1 ="text";
-        public static final String MESSAGE_KEY2 ="position";
-        public static final String MESSAGE_KEY3 ="driverID";
-        public static final String MESSAGE_KEY4 ="userID";
-        public static final String MESSAGE_KEY5 ="timestamp";
 
+        public void setOnItemClickListener(ItemClickListener itemClickListener){
+            this.itemClickListener = itemClickListener;
+        }
 
         // Provide a reference to the views for each data item
         public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             public TextView textView;
-            public TextView textView2;
-            public TextView textView3;
-            public TextView textView4;
-
 
             public MyViewHolder(View itemView) {
                 super(itemView); //itemView corresponds to all views defined in row layout
 
                 textView = itemView.findViewById(R.id.textView);
-                textView2 = itemView.findViewById(R.id.textView2);
-                textView3 = itemView.findViewById(R.id.textView3);
-                textView4 = itemView.findViewById(R.id.textView4);
                 itemView.setOnClickListener(this);
             }
 
@@ -45,17 +37,6 @@ import java.util.ArrayList;
             public void onClick(View view) {
                 int position = this.getLayoutPosition();
                 String message = list.get(position).getMessage();
-                String receiver = list.get(position).getReceiver();
-                String sender = list.get(position).getSender();
-                String timestamp = list.get(position).getTimestamp();
-                Intent intent = new Intent(view.getContext(), MessagePassenger.class);
-                intent.putExtra(MESSAGE_KEY1, message);
-                intent.putExtra(MESSAGE_KEY2, position);
-                intent.putExtra(MESSAGE_KEY3, receiver);
-                intent.putExtra(MESSAGE_KEY4, sender);
-                intent.putExtra(MESSAGE_KEY5, timestamp);
-                view.getContext().startActivity(intent);
-
             }
         }
 
@@ -92,14 +73,7 @@ import java.util.ArrayList;
             Message message = list.get(position);
 
             holder.textView.setText("  " + message.getMessage() + "\n" + "  " + message.getTimestamp());
-            //holder.textView2.setText(" ");
-            //holder.textView2.setText("Driver's ID: " + message.getDriverID());
-            // holder.textView3.setText(" ");
-            //holder.textView3.setText("Passenger's ID: " + message.getPassengerID());
-            //holder.textView4.setText(message.getSender());
-            //holder.textView4.setText("(" + message.getTimestamp() + ")");
 
-            //if(holder.textView.getText().equals(sender)) {
             if(message.getSender().equals(sender)) {
                 holder.textView.setBackgroundResource(R.drawable.sender);
                 holder.textView.setTextColor(Color.BLACK);
@@ -110,7 +84,12 @@ import java.util.ArrayList;
                 holder.textView.setTextColor(Color.BLACK);
 
             }
-
+            holder.textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemClickListener.OnItemClick(position, message);
+                }
+            });
 
         }
 
@@ -118,13 +97,6 @@ import java.util.ArrayList;
         @Override
         public int getItemCount() {
             return list.size();
-            //return mylistvalues.size();
-        }
-
-        public void filterList(ArrayList<Message> filteredList) {
-            list = filteredList;
-            notifyDataSetChanged();
-
         }
 
         public void addItemtoEnd(Message message){ //these functions are user-defined
@@ -134,7 +106,6 @@ import java.util.ArrayList;
 
         public void updateList(ArrayList<Message> list) {
             list.clear();
-            //list.addAll(list);
             notifyDataSetChanged();
         }
 
@@ -149,13 +120,4 @@ import java.util.ArrayList;
             }
         }
 
-
-
-
-
-
-
-
     }
-
-

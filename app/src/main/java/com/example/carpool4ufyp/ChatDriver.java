@@ -37,14 +37,13 @@ import java.util.Calendar;
 
 public class ChatDriver extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String CHANNEL_ID = "ID";
     private FirebaseAuth mAuth1;
     private ImageView messageButton;
     private EditText messageString;
     private ProgressBar progressBar;
     String receiver;
     public ArrayList<Message> list = new ArrayList<>();
-    DatabaseReference databaseReference, reference, databaseRef;
+    DatabaseReference databaseReference, reference;
     ProgressDialog progressDialog;
     RecyclerView mRecyclerView;
     EditText editText;
@@ -52,7 +51,6 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
     private String timestamp;
     AlertDialog.Builder builder;
     AlertDialog dialog;
-    //TextView messagetv;
     Button remove, cancel;
     private String messageID;
 
@@ -79,7 +77,6 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        //driverName = intent.getStringExtra(ViewDrivers.KEY2);
         receiver = intent.getStringExtra(PassengerOptions.KEY1);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
@@ -165,8 +162,6 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
                 builder.setView(view);
                 dialog = builder.create();
                 dialog.show();
-                remove = view.findViewById(R.id.remove);
-                cancel = view.findViewById(R.id.cancel);
 
                 messageID = message.getMessageID();
 
@@ -176,10 +171,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //ChatDriver.myAdapter.remove(position);
-                        //ChatDriver.myAdapter.notifyItemRemoved(position);
                         dialog.dismiss();
-                        //remove();
                         delete();
                     }
                 });
@@ -213,37 +205,6 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
             });
 
     }
-
-
-    private void remove() {
-        Toast.makeText(ChatDriver.this, "Message Removed", Toast.LENGTH_SHORT).show();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages").child(messageID);
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                    dataSnapshot.getRef().removeValue();
-
-
-                }
-
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-                progressDialog.dismiss();
-
-            }
-        });
-        //ChatDriverAdapter.
-        //showChat();
-    }
-
 
     @Override
     public void onClick(View v) {
@@ -303,13 +264,10 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
                     if (task.isSuccessful()) {
                         Toast.makeText(ChatDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
-                        //MessageDriver.myAdapter.addItemtoEnd(message);
                         ChatDriver.myAdapter.addItemtoEnd(message);
                         ChatDriver.myAdapter.updateList(list);
                         showChat();
 
-                        //Intent intent = new Intent(MessageDriver.this, ViewDrivers.class);
-                        //startActivity(intent);
                     } else
                         Toast.makeText(ChatDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                 }
@@ -318,57 +276,6 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
 
         }
-    }
-
-    private void updateChat() {
-
-
-        mRecyclerView = findViewById(R.id.my_recycler_view);
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setHasFixedSize(true);
-
-        myAdapter = new ChatDriverAdapter(ChatDriver.this, list);
-
-
-        mRecyclerView.setAdapter(myAdapter);
-
-
-        progressDialog = new ProgressDialog(ChatDriver.this);
-
-        progressDialog.setMessage("Loading Data from Firebase Database");
-
-        progressDialog.show();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                    Message message = dataSnapshot.getValue(Message.class);
-
-                    list.add(message);
-
-
-                }
-
-
-                myAdapter.notifyDataSetChanged();
-
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-                progressDialog.dismiss();
-
-            }
-        });
     }
 
 }

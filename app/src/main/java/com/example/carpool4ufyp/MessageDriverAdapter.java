@@ -14,25 +14,22 @@ import java.util.ArrayList;
 
 public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdapter.MyViewHolder> {
     private ArrayList<Message> list;
+    ItemClickListener itemClickListener;
     private static final int MSG_TYPE_LEFT=0;
     private static final int MSG_TYPR_RIGHT=1;
 
+    public void setOnItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
 
     // Provide a reference to the views for each data item
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textView;
-        public TextView textView2;
-        public TextView textView3;
-        public TextView textView4;
-
 
         public MyViewHolder(View itemView) {
             super(itemView); //itemView corresponds to all views defined in row layout
 
             textView = itemView.findViewById(R.id.textView);
-            textView2 = itemView.findViewById(R.id.textView2);
-            textView3 = itemView.findViewById(R.id.textView3);
-            textView4 = itemView.findViewById(R.id.textView4);
             itemView.setOnClickListener(this);
         }
 
@@ -77,14 +74,7 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
         Message message = list.get(position);
 
         holder.textView.setText("  " + message.getMessage() + "\n" + "  " + message.getTimestamp());
-        //holder.textView2.setText(" ");
-        //holder.textView2.setText("Driver's ID: " + message.getDriverID());
-       // holder.textView3.setText(" ");
-        //holder.textView3.setText("Passenger's ID: " + message.getPassengerID());
-        //holder.textView4.setText(message.getSender());
-        //holder.textView4.setText("(" + message.getTimestamp() + ")");
 
-        //if(holder.textView.getText().equals(sender)) {
         if(message.getSender().equals(sender)) {
             holder.textView.setBackgroundResource(R.drawable.sender);
             holder.textView.setTextColor(Color.BLACK);
@@ -95,7 +85,12 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
             holder.textView.setTextColor(Color.BLACK);
 
         }
-
+        holder.textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemClickListener.OnItemClick(position, message);
+            }
+        });
 
     }
 
@@ -103,14 +98,8 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
     @Override
     public int getItemCount() {
         return list.size();
-        //return mylistvalues.size();
     }
 
-    public void filterList(ArrayList<Message> filteredList) {
-        list = filteredList;
-        notifyDataSetChanged();
-
-    }
 
     public void addItemtoEnd(Message message){ //these functions are user-defined
         list.add(message);
@@ -120,7 +109,6 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
 
     public void updateList(ArrayList<Message> list) {
         list.clear();
-        //list.addAll(list);
         notifyDataSetChanged();
     }
 
@@ -134,12 +122,5 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
             return MSG_TYPR_RIGHT;
         }
     }
-
-
-
-
-
-
-
 
 }

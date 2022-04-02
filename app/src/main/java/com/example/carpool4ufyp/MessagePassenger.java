@@ -4,7 +4,9 @@ package com.example.carpool4ufyp;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -12,10 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,12 +49,19 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
     EditText editText;
     public static MessagePassengerAdapter myAdapter;
     private String timestamp;
-
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    Button remove, cancel;
+    private String messageID;
+    private String sender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_passenger);
+
+        remove = (Button) findViewById(R.id.remove);
+        cancel = (Button) findViewById(R.id.cancel);
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -63,7 +75,6 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        //driverName = intent.getStringExtra(ViewDrivers.KEY2);
         receiver = intent.getStringExtra(DriverOptions.KEY1);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Passengers");
@@ -106,7 +117,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         progressDialog.setMessage("Loading Data from Firebase Database");
 
         progressDialog.show();
-        String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(sender).child("Messages");
 
@@ -140,8 +151,62 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
             }
         });
+
+        myAdapter.setOnItemClickListener(new ItemClickListener() {
+            @Override
+            public void OnItemClick(int position, Message message) {
+                builder = new AlertDialog.Builder(MessagePassenger.this);
+                message.getMessage();
+                builder.setTitle(message.getMessage());
+                builder.setCancelable(false);
+                View view = LayoutInflater.from(MessagePassenger.this).inflate(R.layout.message_dialog, null, false);
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                messageID = message.getMessageID();
+
+                remove = view.findViewById(R.id.remove);
+                cancel = view.findViewById(R.id.cancel);
+
+                remove.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        delete();
+                    }
+                });
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
     }
 
+    private void delete() {
+        sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(sender).child("Messages").child(messageID);
+        fireDB.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {      // Write was successful!
+                Toast.makeText(MessagePassenger.this, "Removal successful", Toast.LENGTH_LONG).show();
+                MessagePassenger.myAdapter.updateList(list);
+                showChat();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {// Write failed
+                Toast.makeText(MessagePassenger.this, "Removal failed",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -201,8 +266,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
                         MessagePassenger.myAdapter.addItemtoEnd(message);
                         MessagePassenger.myAdapter.updateList(list);
                         showChat();
-                       // Intent intent = new Intent(MessagePassenger.this, PassengerOptions.class);
-                       // startActivity(intent);
+
                     } else {
                         Toast.makeText(MessagePassenger.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                     }
@@ -214,12 +278,3 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
     }
 
 }
-
-
-
-
-
-
-
-
-

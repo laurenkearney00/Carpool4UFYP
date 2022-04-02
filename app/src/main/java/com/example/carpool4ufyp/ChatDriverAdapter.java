@@ -147,14 +147,4 @@ public class ChatDriverAdapter extends RecyclerView.Adapter<ChatDriverAdapter.My
         }
     }
 
-
-    public void remove(int position) {
-        list.remove(position);
-        notifyItemRemoved(position);
-    }
-
-
-
-
-
 }

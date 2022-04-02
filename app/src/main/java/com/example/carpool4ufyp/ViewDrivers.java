@@ -87,22 +87,8 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15));
         getLocation();
-        //add on click listener for marker on maps
-        /*
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                String userID = marker.getTitle();
-                EditText itemtext = (EditText) findViewById(R.id.edittxt_item);
-                itemtext.setText(userID);
-                //Intent i = new Intent(MapsActivity4.this, MakeNotes.class);
-                //i.putExtra(KEY, userID);
-                //startActivity(i);
-                return false;
-            }
-        });
 
-         */
+
     }
 
     public void getLocation() {
@@ -179,45 +165,15 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                             Double latitude1 = currentLocation.getLat();
                             Double longitude1 = currentLocation.getLng();
                             String driverID = currentLocation.getUserID();
-                            /*
-                            reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
-                            reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    UserDriver userProfile = snapshot.getValue(UserDriver.class);
 
-                                    if (userProfile != null) {
-                                        name = userProfile.fullName;
-                                    }
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-                                    Toast.makeText(ViewDrivers.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-                                }
-                            });
-
-                             */
-
-
-
-                            //String brandName=currentLocation.getBrandName();
                             //convert the coordinates to LatLng
                             LatLng latLng = new LatLng(latitude1, longitude1);
                             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
                             //Now lets add updated markers
                             //lets add updated marker
-                            allMarkers[i] = mMap.addMarker(new MarkerOptions()
-                                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).title(driverID));
-                            //driverIDgb = driverID;
+                           allMarkers[i] = mMap.addMarker(new MarkerOptions()
+                                          .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).snippet(driverID));
 
-                            //allMarkers[i] = mMap.addMarker(new MarkerOptions()
-                               //     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng));
-                            //mMap.setTrafficEnabled(true);
-
-                            //  allMarkers[i] = mMap.addMarker(new MarkerOptions()
-                            //        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).position(latLng).title(driverID));
 
                         } catch (Exception ex) {
                         }
@@ -241,15 +197,7 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
-                //Toast.makeText(MapsActivity4.this, marker.getTitle(),Toast.LENGTH_LONG).show();
-                //marker.showInfoWindow();
                 showUpdateDialog(marker);
-                //String receiver = marker.getTitle();
-                //String receiver = driverID;
-               // Intent i = new Intent(ViewDrivers.this, MessageDriver.class);
-               // i.putExtra(KEY, receiver);
-                //i.putExtra(KEY2, name);
-               // startActivity(i);
                 return false;
             }
 
@@ -267,8 +215,8 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
 
         final Button buttonSend = (Button) dialogView.findViewById(R.id.buttonSend);
 
-        String userID = marker.getTitle();
-        //String userID = driverIDgb;
+        String userID = marker.getSnippet();
+
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -285,11 +233,9 @@ public class ViewDrivers extends FragmentActivity implements OnMapReadyCallback 
                     buttonSend.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String receiver = marker.getTitle();
-                            //String receiver = driverIDgb;
+                            String receiver = marker.getSnippet();
                             Intent i = new Intent(ViewDrivers.this, MessageDriver.class);
                             i.putExtra(KEY, receiver);
-                            //i.putExtra(KEY2, name);
                             startActivity(i);
                         }
                     });

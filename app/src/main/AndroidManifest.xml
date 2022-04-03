@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpool4UFYP">
         <activity
+            android:name=".RateDriver"
+            android:exported="false" />
+        <activity
             android:name=".ChatDriver"
             android:exported="false" />
         <!--
@@ -33,6 +36,9 @@
 
         <activity
             android:name=".ViewMessages"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayDrivers"
             android:exported="false" />
         <activity
             android:name=".MessagePassenger"

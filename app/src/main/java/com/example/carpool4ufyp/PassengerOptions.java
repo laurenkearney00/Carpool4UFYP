@@ -187,7 +187,11 @@ public class PassengerOptions extends AppCompatActivity {
             startActivity(intent);
         }
 
-
+        if (item.getItemId() == R.id.rateDriver) {
+            //do suitable action, e.g.start an activity
+            Intent intent = new Intent(this, DisplayDrivers.class);
+            startActivity(intent);
+        }
         return true;
     }
 }

@@ -52,8 +52,6 @@ public class DriversLocation extends AppCompatActivity {
     private FirebaseUser user;
     private DatabaseReference reference;
     private String userID;
-    private static final int GPS_TIME_INTERVAL = 60000; // get gps location every 1 min
-
 
 
 //added userid to current location
@@ -205,14 +203,8 @@ public class DriversLocation extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        /*
         editor.putBoolean(SWITCH1, switch1.isChecked());
-        if(sharedPreferences.getBoolean(SWITCH1, false)) {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        }
 
-         */
         editor.apply();
         editor.commit();
 

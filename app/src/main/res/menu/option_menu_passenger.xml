@@ -18,5 +18,9 @@
         android:orderInCategory="80"
         android:title="View Drivers"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/rateDriver"
+        android:orderInCategory="60"
+        android:title="Rate Drivers"
+        app:showAsAction="never" />
 </menu>

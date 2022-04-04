@@ -12,19 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class RateDriver extends AppCompatActivity {
 
-    private static final String TEXT = "text";
     private static final String SHARED_PREFS = "sharedPrefs";
-    private static final String RESULT = "result";
     private TextView ratingDisplayTextView;
-    private String text;
     private RatingBar ratingRatingBar;
-    private String result;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_driver);
-
+        ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
         ratingRatingBar = (RatingBar) findViewById(R.id.rating_rating_bar);
         Button submitButton = (Button) findViewById(R.id.submit_button);
         ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
@@ -32,39 +30,33 @@ public class RateDriver extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // ratingDisplayTextView.setText("Your rating is: " + ratingRatingBar.getRating());
                 String rating = String.valueOf(ratingRatingBar.getRating());
                 ratingDisplayTextView.setText(rating);
-                saveData();
+                ratingRatingBar = findViewById(R.id.rating_rating_bar);
+                editor = sharedPreferences.edit();
+                editor.putFloat("numStars", Float.parseFloat(rating));
+                editor.commit();
+                ratingRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating,
+                                                boolean fromTouch) {
+                        editor = sharedPreferences.edit();
+                        editor.putFloat("numStars", rating);
+                        editor.commit();
+                    }
+                });
             }
         });
 
-        loadData();
-        updateViews();
     }
 
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString(TEXT, ratingDisplayTextView.getText().toString());
-
-        editor.apply();
-
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-    }
-
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        text = sharedPreferences.getString(TEXT, "");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        float rating = sharedPreferences.getFloat("numStars", 0f);
+        ratingRatingBar.setRating(rating);
+        ratingDisplayTextView.setText(rating + "/" + String.valueOf(rating));
 
     }
-
-    public void updateViews() {
-        ratingDisplayTextView.setText(text);
-        //ratingRatingBar.setRating(Float.parseFloat(text));
-
-        ratingRatingBar.setStepSize(Float.parseFloat(text));
-    }
-
 }

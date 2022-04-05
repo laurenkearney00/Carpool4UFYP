@@ -25,16 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class RateDriver extends AppCompatActivity {
 
-    private static final String SHARED_PREFS = "sharedPrefs";
     private TextView ratingDisplayTextView;
     private RatingBar ratingRatingBar;
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
     String receiver;
     DatabaseReference reference;
-    String star;
+    String starID;
     String passenger = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    String rateID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +54,14 @@ public class RateDriver extends AppCompatActivity {
                     Rating aRating = dataSnapshot.getValue(Rating.class);
                     if (aRating.getReceiver().equals(receiver) && aRating.getSender().equals(passenger)) {
                         String rating = aRating.getRating();
-                        star = aRating.getRatingID();
+                        starID = aRating.getRatingID();
                         ratingDisplayTextView.setText(rating);
                         ratingRatingBar.setRating(Float.parseFloat(rating));
                         changeRating();
                     }
                     else {
                         DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference().child("Ratings");
-                        star = fireDB.push().getKey();
+                        starID = fireDB.push().getKey();
                         Button submitButton = (Button) findViewById(R.id.submit_button);
                         submitButton.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -74,10 +70,10 @@ public class RateDriver extends AppCompatActivity {
                                     String rate = String.valueOf(ratingRatingBar.getRating());
                                     ratingDisplayTextView.setText(rate);
                                     String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                    Rating aRating = new Rating(rate, receiver, sender, star);
+                                    Rating aRating = new Rating(rate, receiver, sender, starID);
 
                                     FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Ratings")
-                                            .child(star)
+                                            .child(starID)
                                             .setValue(aRating).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
@@ -115,9 +111,9 @@ public class RateDriver extends AppCompatActivity {
                                         boolean fromTouch) {
                 String rate = String.valueOf(rating);
                 String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Rating aRating = new Rating(rate, receiver, sender, star);
+                Rating aRating = new Rating(rate, receiver, sender, starID);
                 FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Ratings")
-                        .child(star)
+                        .child(starID)
                         .setValue(aRating).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

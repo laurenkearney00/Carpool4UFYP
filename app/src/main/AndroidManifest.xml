@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpool4UFYP">
         <activity
+            android:name=".Rating"
+            android:exported="false" />
+        <activity
             android:name=".RateDriver"
             android:exported="false" />
         <activity

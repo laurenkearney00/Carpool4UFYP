@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.carpool4ufyp">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -16,15 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpool4UFYP">
-        <activity
-            android:name=".Rating"
-            android:exported="false" />
-        <activity
-            android:name=".RateDriver"
-            android:exported="false" />
-        <activity
-            android:name=".ChatDriver"
-            android:exported="false" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,6 +30,22 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <activity
+            android:name=".ViewTraffic"
+            android:exported="false"
+            android:label="@string/title_activity_view_traffic" />
+        <activity
+            android:name=".DisplayDriverFriends"
+            android:exported="false" />
+        <activity
+            android:name=".Rating"
+            android:exported="false" />
+        <activity
+            android:name=".RateDriver"
+            android:exported="false" />
+        <activity
+            android:name=".ChatDriver"
+            android:exported="false" />
         <activity
             android:name=".ViewMessages"
             android:exported="false" />

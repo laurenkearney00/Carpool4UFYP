@@ -16,11 +16,16 @@
     <item
         android:id="@+id/map"
         android:orderInCategory="80"
-        android:title="View Drivers"
+        android:title="View Drivers on Map"
         app:showAsAction="never" />
     <item
         android:id="@+id/rateDriver"
         android:orderInCategory="60"
         android:title="Rate Drivers"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/viewTraffic"
+        android:orderInCategory="60"
+        android:title="View Real Time Traffic on Map"
         app:showAsAction="never" />
 </menu>

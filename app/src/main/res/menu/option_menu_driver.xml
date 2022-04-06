@@ -24,5 +24,10 @@
         android:orderInCategory="60"
         android:title="Location Settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/viewTraffic"
+        android:orderInCategory="60"
+        android:title="View Real Time Traffic on Map"
+        app:showAsAction="never" />
 
 </menu>

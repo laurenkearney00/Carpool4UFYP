@@ -9,30 +9,80 @@
     android:padding="10dp"
     tools:context=".RateDriver">
 
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="false"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Rate Driver"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/fullNameTv"
+        android:layout_width="186dp"
+        android:layout_height="62dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="90dp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="104dp"
+        android:layout_height="74dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/icons8_driver_24" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="82dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="170dp"
+        app:srcCompat="@drawable/icons8_add_friend_64" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="189dp"
+        android:layout_height="58dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="170dp"
+        android:text="Add driver to favourites"
+        android:textColor="@color/white" />
+
     <RatingBar
         android:id="@+id/rating_rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="300dp"
         android:numStars="5"
         android:stepSize=".5" />
 
     <Button
         android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Submit Rating" />
+        android:layout_width="189dp"
+        android:layout_height="58dp"
+        android:layout_centerVertical="false"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="380dp"
+        android:text="Submit Rating"
+        android:textColor="@color/white" />
 
     <TextView
-        android:text="Your rating will appear here"
+        android:id="@+id/rating_display_text_View"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/submit_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp"
-        android:id="@+id/rating_display_text_View" />
+        android:layout_marginTop="50dp"
+        android:text="Your rating will appear here"
+        android:textSize="16sp" />
 
 </RelativeLayout>

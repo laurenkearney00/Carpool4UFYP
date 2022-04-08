@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/borderlayout"
+    android:padding="10dp"
+    tools:context=".RatingResults">
+
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_centerHorizontal="false"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-black"
+        android:text="View Average Rating"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="174dp"
+        android:layout_height="61dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="90dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="83dp"
+        android:layout_height="97dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize=".5" />
+
+    <TextView
+        android:id="@+id/rating_display_text_View"
+        android:layout_width="161dp"
+        android:layout_height="220dp"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="330dp"
+        android:text="Please note that the current average rating could change if passengers decide to change their rating or if more passengers rate the service. "
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="119dp"
+        android:layout_height="108dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="350dp"
+        app:srcCompat="@drawable/icons8_add_reminder_64" />
+
+</RelativeLayout>

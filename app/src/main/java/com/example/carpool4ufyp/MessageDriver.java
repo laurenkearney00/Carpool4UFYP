@@ -60,8 +60,8 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_driver);
 
-        remove = (Button) findViewById(R.id.remove);
-        cancel = (Button) findViewById(R.id.cancel);
+        remove = (Button) findViewById(R.id.profile);
+        cancel = (Button) findViewById(R.id.message);
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -161,8 +161,8 @@ public class MessageDriver extends AppCompatActivity implements View.OnClickList
 
                 messageID = message.getMessageID();
 
-                remove = view.findViewById(R.id.remove);
-                cancel = view.findViewById(R.id.cancel);
+                remove = view.findViewById(R.id.profile);
+                cancel = view.findViewById(R.id.message);
 
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override

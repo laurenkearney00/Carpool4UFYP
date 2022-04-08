@@ -29,5 +29,9 @@
         android:orderInCategory="60"
         android:title="View Real Time Traffic on Map"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/ratingResult"
+        android:orderInCategory="60"
+        android:title="View Average Rating"
+        app:showAsAction="never" />
 </menu>

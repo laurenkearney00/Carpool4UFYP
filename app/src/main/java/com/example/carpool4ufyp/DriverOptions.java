@@ -219,6 +219,12 @@ public class DriverOptions extends AppCompatActivity {
             Intent intent = new Intent(this, ViewTraffic.class);
             startActivity(intent);
         }
+
+        if (item.getItemId() == R.id.ratingResult) {
+            //do suitable action, e.g.start an activity
+            Intent intent = new Intent(this, RatingResults.class);
+            startActivity(intent);
+        }
         return true;
     }
 }

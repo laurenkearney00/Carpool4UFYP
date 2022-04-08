@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/borderlayout"
+    android:padding="10dp"
+    tools:context=".ViewFavouritedDriversDetails">
+
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="221dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="View Driver's Profile"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.31"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.011" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="66dp"
+        android:layout_height="59dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043"
+        app:srcCompat="@drawable/icons8_driver_24" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="150dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/banner" />
+
+    <TextView
+        android:id="@+id/phoneNumber"
+        android:layout_width="294dp"
+        android:layout_height="53dp"
+        android:layout_marginLeft="56dp"
+        android:ems="10"
+        android:hint="Phone Number (0xx xxx xxxx)"
+        android:inputType="number"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name" />
+
+    <TextView
+        android:id="@+id/banner1"
+        android:layout_width="160dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="220dp"
+        android:fontFamily="sans-serif-black"
+        android:text="  Car Details"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="69dp"
+        android:layout_height="42dp"
+        android:background="#277065"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.402"
+        app:srcCompat="@drawable/icons8_car" />
+
+    <TextView
+        android:id="@+id/licenceNumber"
+        android:layout_width="323dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Licence Number"
+        android:inputType="number"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/banner1" />
+
+    <TextView
+        android:id="@+id/registrationNumber"
+        android:layout_width="321dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Registration Number"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/licenceNumber" />
+
+    <TextView
+        android:id="@+id/carSeats"
+        android:layout_width="319dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Number of seats"
+        android:inputType="number"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.989"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrationNumber" />
+
+    <TextView
+        android:id="@+id/licenceExpiration"
+        android:layout_width="318dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Licence Expiration"
+        android:inputType="datetime"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.967"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/carSeats" />
+
+    <TextView
+        android:id="@+id/makeAndModel"
+        android:layout_width="318dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Make and Model"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/licenceExpiration" />
+
+    <TextView
+        android:id="@+id/colour"
+        android:layout_width="318dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Colour"
+        android:inputType="text"
+        android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.978"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/makeAndModel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,8 +60,8 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_passenger);
 
-        remove = (Button) findViewById(R.id.remove);
-        cancel = (Button) findViewById(R.id.cancel);
+        remove = (Button) findViewById(R.id.profile);
+        cancel = (Button) findViewById(R.id.message);
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -166,8 +166,8 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
                 messageID = message.getMessageID();
 
-                remove = view.findViewById(R.id.remove);
-                cancel = view.findViewById(R.id.cancel);
+                remove = view.findViewById(R.id.profile);
+                cancel = view.findViewById(R.id.message);
 
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override

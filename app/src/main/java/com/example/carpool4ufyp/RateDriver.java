@@ -1,13 +1,9 @@
 package com.example.carpool4ufyp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,14 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.text.ParseException;
 
 public class RateDriver extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,9 +44,9 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
         submitButton = (Button) findViewById(R.id.submit_button);
         submitButton.setOnClickListener(this);
 
-        TextView fullNameTv = (TextView) findViewById(R.id.fullNameTv);
+        TextView fullNameTv = (TextView) findViewById(R.id.rating);
         ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
-        ratingRatingBar = (RatingBar) findViewById(R.id.rating_rating_bar);
+        ratingRatingBar = (RatingBar) findViewById(R.id.rating_bar);
         ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
 
         Intent intent = getIntent();
@@ -109,7 +102,6 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
                     FavouriteDriver driver = dataSnapshot.getValue(FavouriteDriver.class);
                     if (driver.getDriverID().equals(receiver)) {
                         addButton.setText("Added Driver");
-                        //  Toast.makeText(RateDriver.this, "Driver has already been added to favourites", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -120,66 +112,6 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        /*
-
-        reference = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiver).child("Ratings");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Rating aRating = dataSnapshot.getValue(Rating.class);
-                    if (aRating.getReceiver().equals(receiver) && aRating.getSender().equals(passenger)) {
-                        String rating = aRating.getRating();
-                        starID = aRating.getRatingID();
-                        ratingDisplayTextView.setText("Rating given to driver is " + rating);
-                        ratingRatingBar.setRating(Float.parseFloat(rating));
-                        changeRating();
-                    } else {
-                        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference().child("Ratings");
-                        starID = fireDB.push().getKey();
-                        Button submitButton = (Button) findViewById(R.id.submit_button);
-                        submitButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (ratingDisplayTextView.getText().toString().equals("Your rating will appear here")) {
-                                    String rate = String.valueOf(ratingRatingBar.getRating());
-                                    ratingDisplayTextView.setText("Rating given to driver is " + rate);
-                                    String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                    Rating aRating = new Rating(rate, receiver, sender, starID);
-
-                                    FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Ratings")
-                                            .child(starID)
-                                            .setValue(aRating).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(RateDriver.this, "Rating saved", Toast.LENGTH_LONG).show();
-
-                                            } else
-                                                Toast.makeText(RateDriver.this, "Failed to save rating! Try again!", Toast.LENGTH_LONG).show();
-                                        }
-
-                                    });
-                                } else {
-                                    Toast.makeText(RateDriver.this, "Rating is already saved", Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-                        });
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-         */
     }
 
     public void changeRating() {
@@ -276,8 +208,3 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
             }
         }
     }
-
-
-
-
-    //accenture for assignment can look at

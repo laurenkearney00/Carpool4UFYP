@@ -198,6 +198,11 @@ public class PassengerOptions extends AppCompatActivity {
             Intent intent = new Intent(this, ViewTraffic.class);
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.viewFavouriteDrivers) {
+            //do suitable action, e.g.start an activity
+            Intent intent = new Intent(this, DisplayFavouriteDrivers.class);
+            startActivity(intent);
+        }
         return true;
     }
 }

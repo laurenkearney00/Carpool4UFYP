@@ -28,4 +28,9 @@
         android:orderInCategory="60"
         android:title="View Real Time Traffic on Map"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/viewFavouriteDrivers"
+        android:orderInCategory="60"
+        android:title="View Favourited Drivers"
+        app:showAsAction="never" />
 </menu>

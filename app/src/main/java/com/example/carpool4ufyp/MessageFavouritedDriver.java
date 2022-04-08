@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class ChatDriver extends AppCompatActivity implements View.OnClickListener {
+public class MessageFavouritedDriver extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth mAuth1;
     private ImageView messageButton;
@@ -47,7 +47,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
     ProgressDialog progressDialog;
     RecyclerView mRecyclerView;
     EditText editText;
-    public static ChatDriverAdapter myAdapter;
+    public static MessageFavouritedDriverAdapter myAdapter;
     private String timestamp;
     AlertDialog.Builder builder;
     AlertDialog dialog;
@@ -58,12 +58,10 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_driver);
-
+        setContentView(R.layout.activity_message_favourited_driver);
 
         remove = (Button) findViewById(R.id.profile);
         cancel = (Button) findViewById(R.id.message);
-
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -77,7 +75,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(PassengerOptions.KEY1);
+        receiver = intent.getStringExtra(DisplayFavouriteDrivers.KEY);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,13 +91,11 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ChatDriver.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MessageFavouritedDriver.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
-
         showChat();
     }
-
 
     public void showChat() {
 
@@ -110,13 +106,13 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        myAdapter = new ChatDriverAdapter(ChatDriver.this, list);
+        myAdapter = new MessageFavouritedDriverAdapter(MessageFavouritedDriver.this, list);
 
 
         mRecyclerView.setAdapter(myAdapter);
 
 
-        progressDialog = new ProgressDialog(ChatDriver.this);
+        progressDialog = new ProgressDialog(MessageFavouritedDriver.this);
 
         progressDialog.setMessage("Loading Data from Firebase Database");
 
@@ -154,11 +150,11 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
         myAdapter.setOnItemClickListener(new ItemClickListener() {
             @Override
             public void OnItemClick(int position, Message message) {
-                builder = new AlertDialog.Builder(ChatDriver.this);
+                builder = new AlertDialog.Builder(MessageFavouritedDriver.this);
                 message.getMessage();
                 builder.setTitle(message.getMessage());
                 builder.setCancelable(false);
-                View view = LayoutInflater.from(ChatDriver.this).inflate(R.layout.message_dialog, null, false);
+                View view = LayoutInflater.from(MessageFavouritedDriver.this).inflate(R.layout.message_dialog, null, false);
                 builder.setView(view);
                 dialog = builder.create();
                 dialog.show();
@@ -188,23 +184,24 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
     }
 
     private void delete() {
-            DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiver).child("Messages").child(messageID);
-            fireDB.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {      // Write was successful!
-                    Toast.makeText(ChatDriver.this, "Removal successful", Toast.LENGTH_LONG).show();
-                    ChatDriver.myAdapter.updateList(list);
-                    showChat();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {// Write failed
-                    Toast.makeText(ChatDriver.this, "Removal failed",
-                            Toast.LENGTH_LONG).show();
-                }
-            });
+        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiver).child("Messages").child(messageID);
+        fireDB.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {      // Write was successful!
+                Toast.makeText(MessageFavouritedDriver.this, "Removal successful", Toast.LENGTH_LONG).show();
+                MessageFavouritedDriver.myAdapter.updateList(list);
+                showChat();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {// Write failed
+                Toast.makeText(MessageFavouritedDriver.this, "Removal failed",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
+
 
     @Override
     public void onClick(View v) {
@@ -212,11 +209,8 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
             case R.id.messageButton:
                 insertMessage();
                 break;
-
         }
     }
-
-
 
     private void insertMessage() {
         progressBar.setVisibility(View.VISIBLE);
@@ -246,10 +240,10 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ChatDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MessageFavouritedDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
                     } else
-                        Toast.makeText(ChatDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MessageFavouritedDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                 }
 
             });
@@ -262,14 +256,14 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(ChatDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MessageFavouritedDriver.this, "Message sent to driver", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);
-                        ChatDriver.myAdapter.addItemtoEnd(message);
-                        ChatDriver.myAdapter.updateList(list);
+                        MessageFavouritedDriver.myAdapter.addItemtoEnd(message);
+                        MessageFavouritedDriver.myAdapter.updateList(list);
                         showChat();
 
                     } else
-                        Toast.makeText(ChatDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MessageFavouritedDriver.this, "Failed to send message! Try again!", Toast.LENGTH_LONG).show();
                 }
 
             });

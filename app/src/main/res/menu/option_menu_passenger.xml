@@ -33,4 +33,9 @@
         android:orderInCategory="60"
         android:title="View Favourited Drivers"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/makePayment"
+        android:orderInCategory="60"
+        android:title="Make Payment"
+        app:showAsAction="never" />
 </menu>

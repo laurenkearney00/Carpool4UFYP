@@ -2,7 +2,6 @@ package com.example.carpool4ufyp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +35,7 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);
 
-        updateDetails = (Button) findViewById(R.id.update);
+        updateDetails = (Button) findViewById(R.id.pay_button);
         updateDetails.setOnClickListener(this);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -72,7 +71,7 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.update:
+            case R.id.pay_button:
                 updateDetails();
                 break;
         }

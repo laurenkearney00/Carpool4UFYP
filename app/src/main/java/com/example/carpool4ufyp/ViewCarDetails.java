@@ -40,7 +40,7 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
         banner = (TextView) findViewById(R.id.banner);
         banner.setOnClickListener(this);
 
-        updateDetails = (Button) findViewById(R.id.update);
+        updateDetails = (Button) findViewById(R.id.pay_button);
         updateDetails.setOnClickListener(this);
 
         Intent intent= getIntent();
@@ -76,7 +76,7 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
             case R.id.banner:
                 startActivity(new Intent(this, DriverOptions.class));
                 break;
-            case R.id.update:
+            case R.id.pay_button:
                 try {
                     updateDetails();
                 } catch (ParseException e) {

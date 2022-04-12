@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/borderlayout"
     android:padding="10dp"
-    tools:context=".ProfileDriver">
-
+    tools:context=".Payment">
 
     <TextView
         android:id="@+id/banner"
@@ -17,7 +16,7 @@
         android:fontFamily="sans-serif-black"
         android:text="Make Payment"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,46 +37,59 @@
         app:layout_constraintVertical_bias="0.071"
         app:srcCompat="@drawable/icons8_payment_64" />
 
+
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="318dp"
-        android:layout_height="330dp"
+        android:layout_width="326dp"
+        android:layout_height="210dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384"
+        app:layout_constraintVertical_bias="0.282"
         app:srcCompat="@drawable/undraw_stripe_payments_re_chlm" />
 
-    <Button
-        android:id="@+id/pay_button"
-        android:layout_width="253dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="156dp"
-        android:layout_marginEnd="68dp"
-        android:backgroundTint="#277065"
-        android:text="Pay now"
-        android:textColor="#ffffff"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.816" />
+    <com.google.android.material.textfield.TextInputLayout
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:id="@+id/amountLayout"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="332dp"
+        android:hint="Enter Amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/amount_id"
+            android:layout_width="307dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="20dp"
+            android:text="TextView"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.stripe.android.view.CardInputWidget
+        android:id="@+id/cardInputWidget"
+
+        android:layout_width="343dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/amountLayout"
+        app:layout_constraintTop_toBottomOf="@+id/amountLayout" />
+
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="288dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:text="Pay with stripe"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/cardInputWidget"
+        app:layout_constraintHorizontal_bias="0.418"
+        app:layout_constraintStart_toStartOf="@+id/cardInputWidget"
+        app:layout_constraintTop_toBottomOf="@+id/cardInputWidget" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

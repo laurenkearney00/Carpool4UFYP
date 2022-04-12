@@ -39,11 +39,11 @@ public class RegisterPassenger extends AppCompatActivity implements View.OnClick
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        editTextFullName = (EditText) findViewById(R.id.fullName);
-        editTextDateOfBirth = (EditText) findViewById(R.id.dateOfBirth);
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextPhoneNumber = (EditText) findViewById(R.id.phoneNumber);
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextFullName = (EditText) findViewById(R.id.driverName);
+        editTextDateOfBirth = (EditText) findViewById(R.id.passengerName);
+        editTextEmail = (EditText) findViewById(R.id.meetingPoint);
+        editTextPhoneNumber = (EditText) findViewById(R.id.destination);
+        editTextPassword = (EditText) findViewById(R.id.date);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
@@ -136,7 +136,7 @@ public class RegisterPassenger extends AppCompatActivity implements View.OnClick
                                     if (task.isSuccessful()) {
                                         Toast.makeText(RegisterPassenger.this, "User has been registered successfully", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-                                        Intent intent = new Intent(RegisterPassenger.this, SignUpPassenger.class);
+                                        Intent intent = new Intent(RegisterPassenger.this, LoginPassenger.class);
                                         startActivity(intent);
 
                                         // redirect to login layout!

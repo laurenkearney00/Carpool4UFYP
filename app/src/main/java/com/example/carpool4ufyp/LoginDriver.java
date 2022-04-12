@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,29 +17,32 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class SignUpPassenger extends AppCompatActivity implements View.OnClickListener{
+public class LoginDriver extends AppCompatActivity implements View.OnClickListener {
 
     private TextView register, forgotPassword;
     private EditText editTextEmail, editTextPassword;
     private Button signIn;
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private ProgressBar progressBar;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_passenger);
+        setContentView(R.layout.activity_login_driver);
 
         register = (TextView) findViewById(R.id.register);
         register.setOnClickListener(this);
 
-        signIn = (Button) findViewById(R.id.signIn1);
+        signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.email1);
-        editTextPassword = (EditText) findViewById(R.id.password1);
+        editTextEmail = (EditText) findViewById(R.id.meetingPoint);
+        editTextPassword = (EditText) findViewById(R.id.date);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -54,10 +56,10 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.register:
-                startActivity(new Intent(this, RegisterPassenger.class));
+                startActivity(new Intent(this, RegisterDriver.class));
                 break;
 
-            case R.id.signIn1:
+            case R.id.signIn:
                 userLogin();
                 break;
 
@@ -89,8 +91,8 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
             return;
         }
 
-        if(password.length() < 6){
-            editTextPassword.setError("Min password length is 6 characters");
+        if(password.length() < 6 || password.contains(" ")){
+            editTextPassword.setError("Min password length is 6 characters and contain no whitespaces!");
             editTextPassword.requestFocus();
             return;
         }
@@ -103,15 +105,12 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
 
                 if(task.isSuccessful()){
                     //redirect to user profile
-                    startActivity(new Intent(SignUpPassenger.this, PassengerOptions.class));
+                    mUser = mAuth.getCurrentUser();
+                    startActivity(new Intent(LoginDriver.this, DriverOptions.class));
                 }else{
-                    Toast.makeText(SignUpPassenger.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginDriver.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
-
-
 }
-
-

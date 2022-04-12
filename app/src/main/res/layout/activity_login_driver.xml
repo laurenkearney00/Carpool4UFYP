@@ -6,15 +6,27 @@
     android:layout_height="match_parent"
     android:background="@drawable/borderlayout"
     android:padding="10dp"
-    tools:context=".SignUpPassenger">
+    tools:context=".LoginDriver">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="69dp"
+        android:layout_height="63dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061"
+        app:srcCompat="@drawable/icons8_driver_50" />
 
     <TextView
         android:id="@+id/heading"
         android:layout_width="300dp"
         android:layout_height="38dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="sans-serif-black"
-        android:text=" Passenger Login"
+        android:text=" Driver Login"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.495"
@@ -22,23 +34,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="66dp"
-        android:layout_height="59dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.061"
-        app:srcCompat="@drawable/icons8_passenger_50" />
-
     <EditText
-        android:id="@+id/email1"
+        android:id="@+id/meetingPoint"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="Email Address"
         android:inputType="textEmailAddress"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/heading" />
 
     <EditText
-        android:id="@+id/password1"
+        android:id="@+id/date"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -60,10 +60,10 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email1" />
+        app:layout_constraintTop_toBottomOf="@+id/meetingPoint" />
 
     <Button
-        android:id="@+id/signIn1"
+        android:id="@+id/signIn"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="48dp"
@@ -75,19 +75,19 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password1" />
+        app:layout_constraintTop_toBottomOf="@id/date" />
 
     <TextView
         android:id="@+id/forgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="52dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="76dp"
         android:text="Forgotten you password?"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signIn1" />
+        app:layout_constraintTop_toBottomOf="@id/signIn" />
 
     <TextView
         android:id="@+id/register"

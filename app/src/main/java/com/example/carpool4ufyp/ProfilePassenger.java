@@ -43,7 +43,7 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
         userID = user.getUid();
 
         EditText nameEditText = (EditText) findViewById(R.id.name);
-        EditText phoneNumberEditText = (EditText) findViewById(R.id.phoneNumber);
+        EditText phoneNumberEditText = (EditText) findViewById(R.id.destination);
 
         //retrieve user details and updateUI
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,7 +80,7 @@ public class ProfilePassenger extends AppCompatActivity implements View.OnClickL
     private void updateDetails() {
         EditText name = (EditText) findViewById(R.id.name);
         String username = name.getText().toString();
-        EditText phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        EditText phoneNumber = (EditText) findViewById(R.id.destination);
         String number = phoneNumber.getText().toString();
         if (username.isEmpty()) {
             name.setError("Name is required!");

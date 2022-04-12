@@ -1,139 +1,252 @@
 package com.example.carpool4ufyp;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.util.Log;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.stripe.android.PaymentConfiguration;
-import com.stripe.android.paymentsheet.PaymentSheet;
-import com.stripe.android.paymentsheet.PaymentSheetResult;
-import okhttp3.*;
-import org.json.JSONException;
-import org.json.JSONObject;
+import androidx.appcompat.app.AppCompatActivity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.stripe.android.ApiResultCallback;
+import com.stripe.android.PaymentIntentResult;
+import com.stripe.android.Stripe;
+import com.stripe.android.model.ConfirmPaymentIntentParams;
+import com.stripe.android.model.PaymentIntent;
+import com.stripe.android.model.PaymentMethodCreateParams;
+import com.stripe.android.view.CardInputWidget;
+
 import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Payment extends AppCompatActivity {
-    private static final String TAG = "CheckoutActivity";
-    private static final String BACKEND_URL = "http://10.0.2.2:4242";
 
+    // 10.0.2.2 is the Android emulator's alias to localhost
+    // 192.168.1.6 If you are testing in real device with usb connected to same network then use your IP address
+    private static final String BACKEND_URL = "http://10.0.2.2:4242/"; //4242 is port mentioned in server i.e index.js
+    TextView amountText;
+    CardInputWidget cardInputWidget;
+    Button payButton;
+
+    // we need paymentIntentClientSecret to start transaction
     private String paymentIntentClientSecret;
-    private PaymentSheet paymentSheet;
+    //declare stripe
+    private Stripe stripe;
 
-    private Button payButton;
+    Double amountDouble;
 
+    private OkHttpClient httpClient;
+
+    static ProgressDialog progressDialog;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_payment);
-        PaymentConfiguration.init(
+
+        Intent intent = getIntent();
+        String price = intent.getStringExtra(BookingAdapter.MESSAGE_KEY8);
+        Double total = Double.parseDouble(price);
+
+        amountText = findViewById(R.id.amount_id);
+        amountText.setText("Total: €" + total);
+        cardInputWidget = findViewById(R.id.cardInputWidget);
+        payButton = findViewById(R.id.payButton);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Transaction in progress");
+        progressDialog.setCancelable(false);
+        httpClient = new OkHttpClient();
+
+        //Initialize
+        stripe = new Stripe(
                 getApplicationContext(),
-                "pk_test_51Kmb06AUL9m6RxBrRekJiNLC1sFaJsSs6j13sJMusLTvC4oojNh7UjufvyiYjJ35w5hdCiuG7d6hBHE7jmKffwQq00F6WubLcE");
+                Objects.requireNonNull("pk_test_51Kmb06AUL9m6RxBrRekJiNLC1sFaJsSs6j13sJMusLTvC4oojNh7UjufvyiYjJ35w5hdCiuG7d6hBHE7jmKffwQq00F6WubLcE")
+        );
 
-        // Hook up the pay button
-        payButton = findViewById(R.id.pay_button);
-        payButton.setOnClickListener(this::onPayClicked);
-        payButton.setEnabled(false);
 
-        paymentSheet = new PaymentSheet(this, this::onPaymentSheetResult);
-
-        fetchPaymentIntent();
-    }
-
-    private void showAlert(String title, @Nullable String message) {
-        runOnUiThread(() -> {
-            AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setTitle(title)
-                    .setMessage(message)
-                    .setPositiveButton("Ok", null)
-                    .create();
-            dialog.show();
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //get Amount
+                amountDouble = total;
+                //call checkout to get paymentIntentClientSecret key
+                progressDialog.show();
+                startCheckout();
+            }
         });
     }
 
-    private void showToast(String message) {
-        runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_LONG).show());
+    private void startCheckout() {
+        {
+            // Create a PaymentIntent by calling the server's endpoint.
+            MediaType mediaType = MediaType.get("application/json; charset=utf-8");
+//        String json = "{"
+//                + "\"currency\":\"usd\","
+//                + "\"items\":["
+//                + "{\"id\":\"photo_subscription\"}"
+//                + "]"
+//                + "}";
+            double amount=amountDouble*100;
+            Map<String,Object> payMap=new HashMap<>();
+            Map<String,Object> itemMap=new HashMap<>();
+            List<Map<String,Object>> itemList =new ArrayList<>();
+            payMap.put("currency","INR");
+            itemMap.put("id","photo_subscription");
+            itemMap.put("amount",amount);
+            itemList.add(itemMap);
+            payMap.put("items",itemList);
+            String json = new Gson().toJson(payMap);
+            RequestBody body = RequestBody.create(json, mediaType);
+            Request request = new Request.Builder()
+                    .url(BACKEND_URL + "create-payment-intent")
+                    .post(body)
+                    .build();
+            httpClient.newCall(request)
+                    .enqueue(new PayCallback(Payment.this));
+
+        }
     }
 
-    private void fetchPaymentIntent() {
-        final String shoppingCartContent = "{\"items\": [ {\"id\":\"xl-tshirt\"}]}";
-
-        final RequestBody requestBody = RequestBody.create(
-                shoppingCartContent,
-                MediaType.get("application/json; charset=utf-8")
-        );
-
-        Request request = new Request.Builder()
-                .url(BACKEND_URL + "/create-payment-intent")
-                .post(requestBody)
-                .build();
-
-        new OkHttpClient()
-                .newCall(request)
-                .enqueue(new Callback() {
-                    @Override
-                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                        showAlert("Failed to load data", "Error: " + e.toString());
-                    }
-
-                    @Override
-                    public void onResponse(
-                            @NonNull Call call,
-                            @NonNull Response response
-                    ) throws IOException {
-                        if (!response.isSuccessful()) {
-                            showAlert(
-                                    "Failed to load page",
-                                    "Error: " + response.toString()
-                            );
-                        } else {
-                            final JSONObject responseJson = parseResponse(response.body());
-                            paymentIntentClientSecret = responseJson.optString("clientSecret");
-                            runOnUiThread(() -> payButton.setEnabled(true));
-                            Log.i(TAG, "Retrieved PaymentIntent");
-                        }
-                    }
-                });
-    }
-
-    private JSONObject parseResponse(ResponseBody responseBody) {
-        if (responseBody != null) {
-            try {
-                return new JSONObject(responseBody.string());
-            } catch (IOException | JSONException e) {
-                Log.e(TAG, "Error parsing response", e);
+    private static final class PayCallback implements Callback {
+        @NonNull
+        private final WeakReference<Payment> activityRef;
+        PayCallback(@NonNull Payment activity) {
+            activityRef = new WeakReference<>(activity);
+        }
+        @Override
+        public void onFailure(@NonNull Call call, @NonNull IOException e) {
+            progressDialog.dismiss();
+            final Payment activity = activityRef.get();
+            if (activity == null) {
+                return;
+            }
+            activity.runOnUiThread(() ->
+                    Toast.makeText(
+                            activity, "Error: " + e.toString(), Toast.LENGTH_LONG
+                    ).show()
+            );
+        }
+        @Override
+        public void onResponse(@NonNull Call call, @NonNull final Response response)
+                throws IOException {
+            final Payment activity = activityRef.get();
+            if (activity == null) {
+                return;
+            }
+            if (!response.isSuccessful()) {
+                activity.runOnUiThread(() ->
+                        Toast.makeText(
+                                activity, "Error: " + response.toString(), Toast.LENGTH_LONG
+                        ).show()
+                );
+            } else {
+                activity.onPaymentSuccess(response);
             }
         }
-
-        return new JSONObject();
     }
 
-    private void onPayClicked(View view) {
-        PaymentSheet.Configuration configuration = new PaymentSheet.Configuration("Example, Inc.");
+    private void onPaymentSuccess(@NonNull final Response response) throws IOException {
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, String>>(){}.getType();
+        Map<String, String> responseMap = gson.fromJson(
+                Objects.requireNonNull(response.body()).string(),
+                type
+        );
+        paymentIntentClientSecret = responseMap.get("clientSecret");
 
-        // Present Payment Sheet
-        paymentSheet.presentWithPaymentIntent(paymentIntentClientSecret, configuration);
-    }
-
-    private void onPaymentSheetResult(
-            final PaymentSheetResult paymentSheetResult
-    ) {
-        if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            showToast("Payment complete!");
-        } else if (paymentSheetResult instanceof PaymentSheetResult.Canceled) {
-            Log.i(TAG, "Payment canceled!");
-        } else if (paymentSheetResult instanceof PaymentSheetResult.Failed) {
-            Throwable error = ((PaymentSheetResult.Failed) paymentSheetResult).getError();
-            showAlert("Payment failed", error.getLocalizedMessage());
+        //once you get the payment client secret start transaction
+        //get card detail
+        PaymentMethodCreateParams params = cardInputWidget.getPaymentMethodCreateParams();
+        if (params != null) {
+            //now use paymentIntentClientSecret to start transaction
+            ConfirmPaymentIntentParams confirmParams = ConfirmPaymentIntentParams
+                    .createWithPaymentMethodCreateParams(params, paymentIntentClientSecret);
+            //start payment
+            stripe.confirmPayment(Payment.this, confirmParams);
         }
+        Log.i("TAG", "onPaymentSuccess: "+paymentIntentClientSecret);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Handle the result of stripe.confirmPayment
+        stripe.onPaymentResult(requestCode, data, new PaymentResultCallback(this));
+
+    }
+
+    private final class PaymentResultCallback
+            implements ApiResultCallback<PaymentIntentResult> {
+        @NonNull private final WeakReference<Payment> activityRef;
+        PaymentResultCallback(@NonNull Payment activity) {
+            activityRef = new WeakReference<>(activity);
+        }
+        //If Payment is successful
+        @Override
+        public void onSuccess(@NonNull PaymentIntentResult result) {
+            progressDialog.dismiss();
+            final Payment activity = activityRef.get();
+            if (activity == null) {
+                return;
+            }
+            PaymentIntent paymentIntent = result.getIntent();
+            PaymentIntent.Status status = paymentIntent.getStatus();
+            if (status == PaymentIntent.Status.Succeeded) {
+                // Payment completed successfully
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                Toast toast =Toast.makeText(activity, "Ordered Successful", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
+                // Payment failed – allow retrying using a different payment method
+                activity.displayAlert(
+                        "Payment failed",
+                        Objects.requireNonNull(paymentIntent.getLastPaymentError()).getMessage()
+                );
+            }
+        }
+        //If Payment is not successful
+        @Override
+        public void onError(@NonNull Exception e) {
+            progressDialog.dismiss();
+            final Payment activity = activityRef.get();
+            if (activity == null) {
+                return;
+            }
+            // Payment request failed – allow retrying using the same payment method
+            activity.displayAlert("Error", e.toString());
+        }
+    }
+    private void displayAlert(@NonNull String title,
+                              @Nullable String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message);
+        builder.setPositiveButton("Ok", null);
+        builder.create().show();
     }
 }

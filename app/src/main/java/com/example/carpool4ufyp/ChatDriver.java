@@ -77,7 +77,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(PassengerOptions.KEY1);
+        receiver = intent.getStringExtra(PassengerHomeFragment.KEY1);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {

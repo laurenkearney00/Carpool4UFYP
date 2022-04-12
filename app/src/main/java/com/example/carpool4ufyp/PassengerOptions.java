@@ -2,162 +2,35 @@ package com.example.carpool4ufyp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class PassengerOptions extends AppCompatActivity {
 
-    public static final String KEY1 = "DriverID";
-    private FirebaseUser user;
-    private DatabaseReference reference;
-    private String userID;
-    private Button logout;
-    private static final String CHANNEL_ID = "ID";
-    private static final CharSequence CHANNEL_NAME = "name";
-    private static final String CHANNEL_DES = "Des";
-    DatabaseReference databaseReference;
-    private String text;
-    private String sender;
-    private String driver;
-
+    BottomNavigationView mbottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_options);
 
-        logout = (Button) findViewById(R.id.signOut);
+        //assigning the bottom navigation to navigate between the fragments
+        mbottomNavigationView = (BottomNavigationView) findViewById(R.id.BottomNavigationView);
+        Menu menuNav = mbottomNavigationView.getMenu();
 
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(PassengerOptions.this, MainActivity.class));
-            }
-        });
+        //setting the homeFragment as default Fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.FragmentContainer, new PassengerHomeFragment()).commit();
+        //BottomNavigationMethod to perform bottomNavigation Action
+        mbottomNavigationView.setOnNavigationItemSelectedListener(bottomnavMethod);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users: Passengers");
-        userID = user.getUid();
-
-        final TextView greetingTextView = (TextView) findViewById(R.id.greeting);
-
-        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserPassenger userProfile = snapshot.getValue(UserPassenger.class);
-
-                if(userProfile != null) {
-                    String name = userProfile.fullName;
-                    greetingTextView.setText("Welcome " + name + "!" + "\n" + "View Passenger Menu Options");
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(PassengerOptions.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME,
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            channel.setDescription(CHANNEL_DES);
-// Register the channel with the system; you can't change the importance
-// or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        userID = user.getUid();
-
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(userID).child("Notifications");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                    Notification notification = dataSnapshot.getValue(Notification.class);
-
-                    text = notification.getMessage();
-                    sender = notification.getSender();
-                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(sender);
-
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            UserDriver userProfile = snapshot.getValue(UserDriver.class);
-
-                            if (userProfile != null) {
-                                driver = userProfile.fullName;
-// create pending intent
-                                Intent intent = new Intent(getApplicationContext(), ChatDriver.class);
-                                intent.putExtra(KEY1, sender);
-                                PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(),
-                                        0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-// in case there is no pending intent/action, remove setContentIntent
-                                NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),
-                                        CHANNEL_ID)
-                                        .setSmallIcon(android.R.drawable.stat_notify_chat)
-                                        .setContentTitle(driver)
-                                        .setContentText(text)
-                                        .setAutoCancel(true)
-                                        .setContentIntent(pendingIntent);
-                                NotificationManagerCompat notificationManager =
-                                        NotificationManagerCompat.from(getApplicationContext());
-// notificationId is a unique int for each notification that you must define
-                                int notificationId = 0;
-                                notificationManager.notify(notificationId, builder.build());
-
-                            }
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                           // Toast.makeText(DriverOptions.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -208,6 +81,37 @@ public class PassengerOptions extends AppCompatActivity {
             Intent intent = new Intent(this, Payment.class);
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.viewPassengerBookings) {
+            //do suitable action, e.g.start an activity
+            Intent intent = new Intent(this, ViewPassengerBookings.class);
+            startActivity(intent);
+        }
         return true;
     }
+
+
+    //Performs the Bottom Navigation aciton
+    private BottomNavigationView.OnNavigationItemSelectedListener bottomnavMethod = new
+            BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    //Setting the fragment to null
+                    Fragment fragment = null;
+                    switch (item.getItemId()) {
+
+                        //Navigates between the activities by using the id of the menu
+                        case R.id.homeMenu:
+                            fragment = new PassengerHomeFragment();
+                            break;
+                        case R.id.profileMenu:
+                            fragment = new PassengerProfileFragment();
+                            break;
+
+                    }
+                    //Replaces the fragment in the FrameLayout
+                    getSupportFragmentManager().beginTransaction().replace(R.id.FragmentContainer, fragment).commit();
+                    return true;
+                }
+            };
 }

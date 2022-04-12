@@ -32,9 +32,6 @@ public class ProfileDriver extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_driver);
 
-        banner = (TextView) findViewById(R.id.banner);
-        banner.setOnClickListener(this);
-
         updateDetails = (Button) findViewById(R.id.pay_button);
         updateDetails.setOnClickListener(this);
 
@@ -43,7 +40,7 @@ public class ProfileDriver extends AppCompatActivity implements View.OnClickList
         userID = user.getUid();
 
         EditText nameEditText = (EditText) findViewById(R.id.name);
-        EditText phoneNumberEditText = (EditText) findViewById(R.id.phoneNumber);
+        EditText phoneNumberEditText = (EditText) findViewById(R.id.destination);
 
         //retrieve user details and updateUI
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,7 +77,7 @@ public class ProfileDriver extends AppCompatActivity implements View.OnClickList
     private void updateDetails() {
         EditText name = (EditText) findViewById(R.id.name);
         String username = name.getText().toString();
-        EditText phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        EditText phoneNumber = (EditText) findViewById(R.id.destination);
         String number = phoneNumber.getText().toString();
         if (username.isEmpty()) {
             name.setError("Name is required!");

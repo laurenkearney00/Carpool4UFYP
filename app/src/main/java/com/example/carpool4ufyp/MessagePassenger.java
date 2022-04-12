@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,7 @@ import java.util.Calendar;
 
 public class MessagePassenger extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String KEY = "passengerID";
     private FirebaseAuth mAuth1;
     private ImageView messageButton;
     private EditText messageString;
@@ -75,7 +78,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(DriverOptions.KEY1);
+        receiver = intent.getStringExtra(DriverHomeFragment.KEY1);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Passengers");
         reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -275,6 +278,27 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
             });
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.booking_for_passenger, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " + item.getTitle(),
+                Toast.LENGTH_SHORT).show();
+
+        if (item.getItemId() == R.id.bookingForPassenger) {
+            //do suitable action, e.g.start an activity
+            Intent i = new Intent(this, BookingForPassenger.class);
+            i.putExtra(KEY, receiver);
+            startActivity(i);
+        }
+        return true;
     }
 
 }

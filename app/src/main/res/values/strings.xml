@@ -9,4 +9,6 @@
     <string name="title_activity_maps5">MapsActivity5</string>
     <string name="title_activity_view_passengers">ViewPassengers</string>
     <string name="title_activity_view_traffic">ViewTraffic</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

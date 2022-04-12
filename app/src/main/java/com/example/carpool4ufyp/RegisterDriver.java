@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,9 +27,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class RegisterDriver extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,7 +35,7 @@ public class RegisterDriver extends AppCompatActivity implements View.OnClickLis
 
     private EditText editTextFullName, editTextDateOfBirth, editTextPhoneNumber, editTextEmail, editTextPassword;
     private ProgressBar progressBar;
-    private TextView banner, registerUser;
+    private Button registerUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +44,14 @@ public class RegisterDriver extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
 
-        banner = (TextView) findViewById(R.id.banner);
-        banner.setOnClickListener(this);
-
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        editTextFullName = (EditText) findViewById(R.id.fullName);
-        editTextDateOfBirth = (EditText) findViewById(R.id.dateOfBirth);
-        editTextEmail = (EditText) findViewById(R.id.email);
-        editTextPhoneNumber = (EditText) findViewById(R.id.phoneNumber);
-        editTextPassword = (EditText) findViewById(R.id.password);
+        editTextFullName = (EditText) findViewById(R.id.driverName);
+        editTextDateOfBirth = (EditText) findViewById(R.id.passengerName);
+        editTextEmail = (EditText) findViewById(R.id.meetingPoint);
+        editTextPhoneNumber = (EditText) findViewById(R.id.destination);
+        editTextPassword = (EditText) findViewById(R.id.date);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }

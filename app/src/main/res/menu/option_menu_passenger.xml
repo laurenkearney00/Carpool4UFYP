@@ -38,4 +38,9 @@
         android:orderInCategory="60"
         android:title="Make Payment"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/viewPassengerBookings"
+        android:orderInCategory="60"
+        android:title="View Bookings"
+        app:showAsAction="never" />
 </menu>

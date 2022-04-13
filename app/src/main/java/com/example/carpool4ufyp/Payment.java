@@ -56,7 +56,7 @@ public class Payment extends AppCompatActivity {
 
     // 10.0.2.2 is the Android emulator's alias to localhost
     // 192.168.1.6 If you are testing in real device with usb connected to same network then use your IP address
-    private static final String BACKEND_URL = "http://10.0.2.2:4242/"; //4242 is port mentioned in server i.e index.js
+    private static final String BACKEND_URL = "http://10.0.2.2:4242/"; //4242 is port mentioned in server i.e server.js
     TextView amountText;
     CardInputWidget cardInputWidget;
     Button payButton;

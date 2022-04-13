@@ -88,14 +88,14 @@ public class DisplayFavouriteDrivers extends AppCompatActivity {
             }
         });
 
-        myAdapter.setOnDriverClickListener(new DriverClickListener() {
+        myAdapter.setOnFavouriteDriverClickListener(new FavouriteDriverClickListener() {
             @Override
             public void OnDriverClick(int position, FavouriteDriver favouriteDriver) {
                 builder = new AlertDialog.Builder(DisplayFavouriteDrivers.this);
                 favouriteDriver.getDriverID();
                 builder.setTitle("View Options");
                 builder.setCancelable(false);
-                View view = LayoutInflater.from(DisplayFavouriteDrivers.this).inflate(R.layout.driver_dialog, null, false);
+                View view = LayoutInflater.from(DisplayFavouriteDrivers.this).inflate(R.layout.favourite_driver_dialog, null, false);
                 builder.setView(view);
                 dialog = builder.create();
                 dialog.show();

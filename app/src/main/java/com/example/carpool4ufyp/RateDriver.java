@@ -44,13 +44,12 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
         submitButton = (Button) findViewById(R.id.submit_button);
         submitButton.setOnClickListener(this);
 
-        TextView fullNameTv = (TextView) findViewById(R.id.rating);
+        TextView fullNameTv = (TextView) findViewById(R.id.nameOfDriver);
         ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
         ratingRatingBar = (RatingBar) findViewById(R.id.rating_bar);
-        ratingDisplayTextView = (TextView) findViewById(R.id.rating_display_text_View);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(DisplayDriversAdapter.MESSAGE_KEY3);
+        receiver = intent.getStringExtra(DisplayDrivers.KEY);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {

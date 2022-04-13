@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Carpool4UFYP"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ViewRatingsForDrivers"
+            android:exported="false" />
+        <activity
             android:name=".DriverProfileFragment"
             android:exported="false" />
         <activity
@@ -45,7 +48,7 @@
             android:name=".MessageFavouritedDriver"
             android:exported="false" />
         <activity
-            android:name=".DriverClickListener"
+            android:name=".FavouriteDriverClickListener"
             android:exported="false" />
         <activity
             android:name=".DisplayFavouriteDrivers"
@@ -113,9 +116,6 @@
             android:name=".DisplayCar"
             android:exported="false" />
         <activity
-            android:name=".ProfileDriver"
-            android:exported="false" />
-        <activity
             android:name=".ViewCarDetails"
             android:exported="false" />
         <activity
@@ -129,9 +129,6 @@
             android:exported="false" />
         <activity
             android:name=".RegisterPassenger"
-            android:exported="false" />
-        <activity
-            android:name=".ProfilePassenger"
             android:exported="false" />
         <activity
             android:name=".ForgotPassword"

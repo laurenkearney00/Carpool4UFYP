@@ -1,13 +1,10 @@
 package com.example.carpool4ufyp;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,20 +13,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 public class BookingForPassenger extends AppCompatActivity implements View.OnClickListener {
 
@@ -50,7 +36,7 @@ public class BookingForPassenger extends AppCompatActivity implements View.OnCli
         sendBooking = (Button) findViewById(R.id.sendBooking);
         sendBooking.setOnClickListener(this);
 
-        editTextDriverName = (EditText) findViewById(R.id.driverName);
+        editTextDriverName = (EditText) findViewById(R.id.nameOfDriver);
         editTextPassengerName = (EditText) findViewById(R.id.passengerName);
         editTextMeetingPoint = (EditText) findViewById(R.id.meetingPoint);
         editTextDestination = (EditText) findViewById(R.id.destination);

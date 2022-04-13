@@ -1,5 +1,6 @@
 package com.example.carpool4ufyp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,10 +11,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +33,10 @@ public class DisplayDrivers extends AppCompatActivity {
     RecyclerView mRecyclerView;
     public static DisplayDriversAdapter myAdapter;
     EditText editText;
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    Button averageRating, createRating, driver;
+    public static final String KEY ="driverID";
 
 
     @Override
@@ -101,6 +107,52 @@ public class DisplayDrivers extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
                 progressDialog.dismiss();
+
+            }
+        });
+
+        myAdapter.setOnDriverClickListener(new DriverClickListener() {
+            @Override
+            public void OnDriverClick(int position, UserDriver userDriver) {
+                builder = new AlertDialog.Builder(DisplayDrivers.this);
+                userDriver.getDriverID();
+                builder.setTitle("View Options");
+                builder.setCancelable(false);
+                View view = LayoutInflater.from(DisplayDrivers.this).inflate(R.layout.driver_dialog, null, false);
+                builder.setView(view);
+                dialog = builder.create();
+                dialog.show();
+
+                String driverID = userDriver.getDriverID();
+
+                averageRating = view.findViewById(R.id.averageRating);
+                createRating = view.findViewById(R.id.createRating);
+                driver = view.findViewById(R.id.driver);
+
+                averageRating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(DisplayDrivers.this, ViewRatingsForDrivers.class);
+                        i.putExtra(KEY, driverID);
+                        startActivity(i);
+                    }
+                });
+
+                createRating.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i = new Intent(DisplayDrivers.this, RateDriver.class);
+                        i.putExtra(KEY, driverID);
+                        startActivity(i);
+                    }
+                });
+
+                driver.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 
             }
         });

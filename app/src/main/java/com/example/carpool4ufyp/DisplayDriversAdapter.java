@@ -13,10 +13,11 @@ import java.util.ArrayList;
 
 public class DisplayDriversAdapter extends RecyclerView.Adapter<DisplayDriversAdapter.MyViewHolder> {
     private ArrayList<UserDriver> list;
+    private DriverClickListener driverClickListener;
 
-    public static final String MESSAGE_KEY1 ="fullName";
-    public static final String MESSAGE_KEY2 ="position";
-    public static final String MESSAGE_KEY3 ="driverID";
+    public void setOnDriverClickListener(DriverClickListener driverClickListener){
+        this.driverClickListener = driverClickListener;
+    }
 
     // Provide a reference to the views for each data item
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -37,11 +38,6 @@ public class DisplayDriversAdapter extends RecyclerView.Adapter<DisplayDriversAd
             int position = this.getLayoutPosition();
             String fullName = list.get(position).getFullName();
             String driverID = list.get(position).getDriverID();
-            Intent intent= new Intent(view.getContext(), RateDriver.class);
-            intent.putExtra(MESSAGE_KEY1 , fullName);
-            intent.putExtra(MESSAGE_KEY2, position);
-            intent.putExtra(MESSAGE_KEY3, driverID);
-            view.getContext().startActivity(intent);
         }
     }
 
@@ -67,6 +63,13 @@ public class DisplayDriversAdapter extends RecyclerView.Adapter<DisplayDriversAd
         // -replace the contents of the view with that element
         UserDriver userDriver = list.get(position);
         holder.textView1.setText(userDriver.getFullName());
+
+        holder.textView1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                driverClickListener.OnDriverClick(position, userDriver);
+            }
+        });
     }
 
     // Return the size of your dataset

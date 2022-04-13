@@ -1,6 +1,6 @@
 package com.example.carpool4ufyp;
 
-public interface DriverClickListener {
+public interface FavouriteDriverClickListener {
 
     void OnDriverClick(int position, FavouriteDriver favouriteDriver);
 }

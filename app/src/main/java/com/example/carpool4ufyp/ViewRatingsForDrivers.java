@@ -2,30 +2,53 @@ package com.example.carpool4ufyp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RatingResults extends AppCompatActivity {
+public class ViewRatingsForDrivers extends AppCompatActivity {
 
-    private DatabaseReference databaseReference, dataRef;
+    private String driverID, driverName;
+    private DatabaseReference databaseReference, dataRef, reference;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rating_results);
+        setContentView(R.layout.activity_view_ratings_for_drivers);
 
-        TextView ratingText = (TextView) findViewById(R.id.nameOfDriver);
+        TextView ratingText = (TextView) findViewById(R.id.ratingTv);
         RatingBar ratingBar = (RatingBar) findViewById(R.id.rating_bar);
+        TextView nameText = (TextView) findViewById(R.id.nameOfDriver);
 
-        String driverID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Intent intent = getIntent();
+        driverID = intent.getStringExtra(DisplayDrivers.KEY);
+
+        FirebaseDatabase.getInstance().getReference("Users: Drivers").child(driverID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) { //every time change data the event listener will execute ondatachangemethod
+                UserDriver userDriver = snapshot.getValue(UserDriver.class);
+
+                if (userDriver != null) {
+                    driverName = userDriver.fullName;
+                    nameText.setText(driverName);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ViewRatingsForDrivers.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         dataRef = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(driverID).child("Ratings");
 
@@ -72,12 +95,9 @@ public class RatingResults extends AppCompatActivity {
 
             }
 
-        });
-
-
+            });
 
     }
-
 }
 
 

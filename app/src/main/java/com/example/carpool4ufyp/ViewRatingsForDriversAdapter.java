@@ -2,6 +2,7 @@ package com.example.carpool4ufyp;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +11,12 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+public class ViewRatingsForDriversAdapter extends RecyclerView.Adapter<ViewRatingsForDriversAdapter.MyViewHolder> {
+    private ArrayList<UserDriver> list;
 
-public class DisplayFavouriteDriversAdapter extends RecyclerView.Adapter<DisplayFavouriteDriversAdapter.MyViewHolder> {
-    private ArrayList<FavouriteDriver> list;
-    private FavouriteDriverClickListener favouriteDriverClickListener;
-
-    public void setOnFavouriteDriverClickListener(FavouriteDriverClickListener favouriteDriverClickListener){
-        this.favouriteDriverClickListener = favouriteDriverClickListener;
-    }
+    public static final String MESSAGE_KEY1 ="fullName";
+    public static final String MESSAGE_KEY2 ="position";
+    public static final String MESSAGE_KEY3 ="driverID";
 
     // Provide a reference to the views for each data item
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -38,16 +37,21 @@ public class DisplayFavouriteDriversAdapter extends RecyclerView.Adapter<Display
             int position = this.getLayoutPosition();
             String fullName = list.get(position).getFullName();
             String driverID = list.get(position).getDriverID();
+            Intent intent= new Intent(view.getContext(), RateDriver.class);
+            intent.putExtra(MESSAGE_KEY1 , fullName);
+            intent.putExtra(MESSAGE_KEY2, position);
+            intent.putExtra(MESSAGE_KEY3, driverID);
+            view.getContext().startActivity(intent);
         }
     }
 
-    public DisplayFavouriteDriversAdapter(DisplayFavouriteDrivers displayFavoriteDrivers, ArrayList<FavouriteDriver> drivers) {
+    public ViewRatingsForDriversAdapter(ViewRatingsForDrivers viewRatingsForDrivers, ArrayList<UserDriver> drivers) {
         list = drivers;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public DisplayFavouriteDriversAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewRatingsForDriversAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         LayoutInflater inflater= LayoutInflater.from(parent.getContext());
         View itemView= inflater.inflate(R.layout.item_drivers, parent, false);
@@ -61,21 +65,20 @@ public class DisplayFavouriteDriversAdapter extends RecyclerView.Adapter<Display
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // -get element from your dataset at this position
         // -replace the contents of the view with that element
-        FavouriteDriver favouriteDriver = list.get(position);
-        holder.textView1.setText(favouriteDriver.getFullName());
-
-        holder.textView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                favouriteDriverClickListener.OnDriverClick(position, favouriteDriver);
-            }
-        });
+        UserDriver userDriver = list.get(position);
+        holder.textView1.setText(userDriver.getFullName());
     }
 
     // Return the size of your dataset
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void filterList(ArrayList<UserDriver> filteredList) {
+        list = filteredList;
+        notifyDataSetChanged();
+
     }
 
 }

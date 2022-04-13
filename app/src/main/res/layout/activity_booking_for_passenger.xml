@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/driverName"
+        android:id="@+id/nameOfDriver"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -60,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverName" />
+        app:layout_constraintTop_toBottomOf="@+id/nameOfDriver" />
 
     <EditText
         android:id="@+id/meetingPoint"

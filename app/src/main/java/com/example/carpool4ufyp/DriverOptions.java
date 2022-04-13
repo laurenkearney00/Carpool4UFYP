@@ -45,11 +45,6 @@ public class DriverOptions extends AppCompatActivity {
         Toast.makeText(this, "Selected Item: " + item.getTitle(),
                 Toast.LENGTH_SHORT).show();
 
-        if (item.getItemId() == R.id.profileDriver) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this, ProfileDriver.class);
-            startActivity(intent);
-        }
         if (item.getItemId() == R.id.displayCar) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, DisplayCar.class);

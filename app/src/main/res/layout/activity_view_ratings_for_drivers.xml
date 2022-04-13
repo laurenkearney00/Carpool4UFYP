@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/borderlayout"
+    android:padding="10dp"
+    tools:context=".ViewRatingsForDrivers">
+
+    <TextView
+        android:id="@+id/banner"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_centerHorizontal="false"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif-black"
+        android:text="View Average Rating"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/nameOfDriver"
+        android:layout_width="222dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="100dp"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="88dp"
+        android:layout_height="74dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="140dp"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="97dp"
+        android:layout_height="104dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/driver" />
+
+    <TextView
+        android:id="@+id/ratingTv"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nameOfDriver"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="29dp"
+        android:text="No passengers have given this driver a rating yet."
+        android:textSize="16sp" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:stepSize=".5" />
+
+    <TextView
+        android:id="@+id/ratingInfo"
+        android:layout_width="247dp"
+        android:layout_height="114dp"
+        android:layout_below="@id/rating_bar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="154dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="58dp"
+        android:text="This average rating could change if passengers decide to change their rating or if more passengers rate the service. "
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="99dp"
+        android:layout_height="77dp"
+        android:layout_below="@id/rating_bar"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="72dp"
+        app:srcCompat="@drawable/icons8_add_reminder_64" />
+
+</RelativeLayout>

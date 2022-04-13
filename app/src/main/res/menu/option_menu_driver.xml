@@ -8,12 +8,6 @@
         android:title="View Current Weather"
         app:showAsAction="always" />
     <item
-        android:id="@+id/profileDriver"
-        android:icon="@drawable/ic_launcher_foreground"
-        android:orderInCategory="80"
-        android:title="View Profile"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/displayCar"
         android:icon="@drawable/icons8_carpool_48"
         android:orderInCategory="80"

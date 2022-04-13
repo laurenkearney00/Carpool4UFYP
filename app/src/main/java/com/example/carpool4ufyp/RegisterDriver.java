@@ -47,7 +47,7 @@ public class RegisterDriver extends AppCompatActivity implements View.OnClickLis
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        editTextFullName = (EditText) findViewById(R.id.driverName);
+        editTextFullName = (EditText) findViewById(R.id.nameOfDriver);
         editTextDateOfBirth = (EditText) findViewById(R.id.passengerName);
         editTextEmail = (EditText) findViewById(R.id.meetingPoint);
         editTextPhoneNumber = (EditText) findViewById(R.id.destination);

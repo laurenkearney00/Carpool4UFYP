@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/rating"
+        android:id="@+id/nameOfDriver"
         android:layout_width="186dp"
         android:layout_height="62dp"
         android:layout_marginLeft="150dp"

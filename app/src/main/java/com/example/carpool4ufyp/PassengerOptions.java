@@ -43,11 +43,6 @@ public class PassengerOptions extends AppCompatActivity {
         Toast.makeText(this, "Selected Item: " + item.getTitle(),
                 Toast.LENGTH_SHORT).show();
 
-        if (item.getItemId() == R.id.profilePassenger) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this, ProfilePassenger.class);
-            startActivity(intent);
-        }
         if (item.getItemId() == R.id.weatherUpdate) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, WeatherUpdate.class);

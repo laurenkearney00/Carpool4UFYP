@@ -13,9 +13,17 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -52,6 +60,7 @@ public class Payment extends AppCompatActivity {
     TextView amountText;
     CardInputWidget cardInputWidget;
     Button payButton;
+    private ProgressBar progressBar;
 
     // we need paymentIntentClientSecret to start transaction
     private String paymentIntentClientSecret;
@@ -68,8 +77,12 @@ public class Payment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+
         Intent intent = getIntent();
         String price = intent.getStringExtra(BookingAdapter.MESSAGE_KEY8);
+
         Double total = Double.parseDouble(price);
 
         amountText = findViewById(R.id.amount_id);
@@ -91,11 +104,18 @@ public class Payment extends AppCompatActivity {
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //get Amount
-                amountDouble = total;
-                //call checkout to get paymentIntentClientSecret key
-                progressDialog.show();
-                startCheckout();
+                Intent intent = getIntent();
+                String status = intent.getStringExtra(BookingAdapter.MESSAGE_KEY12);
+                if(status.equals("paid")) {
+                    Toast.makeText(Payment.this, "Booking is already paid for", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    //get Amount
+                    amountDouble = total;
+                    //call checkout to get paymentIntentClientSecret key
+                    progressDialog.show();
+                    startCheckout();
+                }
             }
         });
     }
@@ -215,12 +235,64 @@ public class Payment extends AppCompatActivity {
             }
             PaymentIntent paymentIntent = result.getIntent();
             PaymentIntent.Status status = paymentIntent.getStatus();
+
             if (status == PaymentIntent.Status.Succeeded) {
                 // Payment completed successfully
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                Toast toast =Toast.makeText(activity, "Ordered Successful", Toast.LENGTH_SHORT);
+                Toast toast =Toast.makeText(activity, "Payment Successful", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
+
+                Intent intent = getIntent();
+                String bookingID = intent.getStringExtra(BookingAdapter.MESSAGE_KEY11);
+                String passengerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                String statusUpdate = "paid";
+
+                DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Passengers").child(passengerID).child("Bookings").child(bookingID);
+                    fireDB.child("status").setValue(statusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {      // Write was successful!
+                            Toast.makeText(Payment.this, "Status set to paid", Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {// Write failed
+                            Toast.makeText(Payment.this, "Update failed",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+                String driver = intent.getStringExtra(BookingAdapter.MESSAGE_KEY1);
+                String passenger = intent.getStringExtra(BookingAdapter.MESSAGE_KEY3);
+                String meetingPoint = intent.getStringExtra(BookingAdapter.MESSAGE_KEY4);
+                String destination = intent.getStringExtra(BookingAdapter.MESSAGE_KEY5);
+                String date = intent.getStringExtra(BookingAdapter.MESSAGE_KEY6);
+                String pickupTime = intent.getStringExtra(BookingAdapter.MESSAGE_KEY7);
+                String price = intent.getStringExtra(BookingAdapter.MESSAGE_KEY8);
+                String driverID = intent.getStringExtra(BookingAdapter.MESSAGE_KEY9);
+
+                progressBar.setVisibility(View.VISIBLE);
+                fireDB = FirebaseDatabase.getInstance().getReference().child("Trips");
+                String tripID = fireDB.push().getKey();
+
+                Trip trip = new Trip(driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID);
+
+                FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(driverID).child("Trips")
+                        .child(tripID)
+                        .setValue(trip).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()) {
+                            Toast.makeText(Payment.this, "Payment sent to driver", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(Payment.this, "Failed to send payment! Try again!", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
             } else if (status == PaymentIntent.Status.RequiresPaymentMethod) {
                 // Payment failed – allow retrying using a different payment method
                 activity.displayAlert(

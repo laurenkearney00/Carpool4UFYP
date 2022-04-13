@@ -73,6 +73,11 @@ public class DriverOptions extends AppCompatActivity {
             Intent intent = new Intent(this, RatingResults.class);
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.viewTrips) {
+            //do suitable action, e.g.start an activity
+            Intent intent = new Intent(this, ViewTrips.class);
+            startActivity(intent);
+        }
         return true;
     }
 

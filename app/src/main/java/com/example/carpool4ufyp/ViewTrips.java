@@ -22,21 +22,21 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ViewPassengerBookings extends AppCompatActivity {
+public class ViewTrips extends AppCompatActivity {
 
 
-    private ArrayList<Booking> list = new ArrayList<>();
+    private ArrayList<Trip> list = new ArrayList<>();
     DatabaseReference databaseReference;
     ProgressDialog progressDialog;
     RecyclerView mRecyclerView;
-    public static BookingAdapter myAdapter;
+    public static TripAdapter myAdapter;
     EditText editText;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_passenger_bookings);
+        setContentView(R.layout.activity_view_trips);
 
         editText = (EditText) findViewById(R.id.search);
 
@@ -64,21 +64,21 @@ public class ViewPassengerBookings extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setHasFixedSize(true);
-        myAdapter = new BookingAdapter(ViewPassengerBookings.this, list);
+        myAdapter = new TripAdapter(ViewTrips.this, list);
 
 
         mRecyclerView.setAdapter(myAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
 
-        progressDialog = new ProgressDialog(ViewPassengerBookings.this);
+        progressDialog = new ProgressDialog(ViewTrips.this);
 
         progressDialog.setMessage("Loading Data from Firebase Database");
 
         progressDialog.show();
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(userID).child("Bookings");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(userID).child("Trips");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,9 +86,9 @@ public class ViewPassengerBookings extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                    Booking bookings = dataSnapshot.getValue(Booking.class);
+                    Trip trips = dataSnapshot.getValue(Trip.class);
 
-                    list.add(bookings);
+                    list.add(trips);
 
 
                 }
@@ -109,11 +109,11 @@ public class ViewPassengerBookings extends AppCompatActivity {
 
     }
     private void filter(String text) {
-        ArrayList<Booking> filteredList = new ArrayList<>();
+        ArrayList<Trip> filteredList = new ArrayList<>();
 
-        for (Booking booking : list) {
-            if (booking.getDriver().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(booking);
+        for (Trip trip : list) {
+            if (trip.getDriver().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(trip);
             }
         }
 

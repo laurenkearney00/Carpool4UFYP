@@ -23,7 +23,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
     public static final String MESSAGE_KEY8 ="price";
     public static final String MESSAGE_KEY9 ="driverID";
     public static final String MESSAGE_KEY10 ="passengerID";
-
+    public static final String MESSAGE_KEY11 ="bookingID";
+    public static final String MESSAGE_KEY12 ="statusID";
 
     // Provide a reference to the views for each data item
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -34,6 +35,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
         public TextView textView5;
         public TextView textView6;
         public TextView textView7;
+        public TextView textView8;
 
         public MyViewHolder(View itemView) {
             super(itemView); //itemView corresponds to all views defined in row layout
@@ -45,6 +47,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
             textView5 = itemView.findViewById(R.id.textView5);
             textView6 = itemView.findViewById(R.id.textView6);
             textView7 = itemView.findViewById(R.id.textView7);
+            textView8 = itemView.findViewById(R.id.textView8);
             itemView.setOnClickListener(this);
         }
 
@@ -61,6 +64,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
             String price = list.get(position).getPrice();
             String driverID = list.get(position).getDriverID();
             String passengerID = list.get(position).getPassengerID();
+            String bookingID = list.get(position).getBookingID();
+            String status = list.get(position).getStatus();
             Intent intent= new Intent(view.getContext(), Payment.class);
             intent.putExtra(MESSAGE_KEY1 , driver);
             intent.putExtra(MESSAGE_KEY2, position);
@@ -72,6 +77,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
             intent.putExtra(MESSAGE_KEY8, price);
             intent.putExtra(MESSAGE_KEY9, driverID);
             intent.putExtra(MESSAGE_KEY10, passengerID);
+            intent.putExtra(MESSAGE_KEY11, bookingID);
+            intent.putExtra(MESSAGE_KEY12, status);
             view.getContext().startActivity(intent);
         }
 
@@ -107,13 +114,15 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
 
         Booking booking = list.get(position);
 
-        holder.textView1.setText("Driver Name: " + booking.getDriver());
-        holder.textView2.setText("Passenger Name: " + booking.getPassenger());
-        holder.textView3.setText("Meeting Point: " + booking.getMeetingPoint());
+        holder.textView1.setText("Driver name: " + booking.getDriver());
+        holder.textView2.setText("Passenger name: " + booking.getPassenger());
+        holder.textView3.setText("Meeting point: " + booking.getMeetingPoint());
         holder.textView4.setText("Destination: " + booking.getDestination());
         holder.textView5.setText("Date: " + booking.getDate());
-        holder.textView6.setText("Pickup Time: " + booking.getPickupTime());
-        holder.textView7.setText("Price: " + booking.getPrice());
+        holder.textView6.setText("Pickup time: " + booking.getPickupTime());
+        holder.textView7.setText("Price: €" + booking.getPrice());
+        holder.textView8.setText("Status: " + booking.getStatus());
+
 
     }
 

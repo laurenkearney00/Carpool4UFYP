@@ -77,8 +77,8 @@ public class ViewTraffic extends FragmentActivity implements OnMapReadyCallback 
         mMap.setMyLocationEnabled(true);
         mMap.setTrafficEnabled(true);
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
+        mLocationRequest.setInterval(600000);
+        //mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mFusedLocationClient = new FusedLocationProviderClient(getApplicationContext());
         mFusedLocationClient.requestLocationUpdates(mLocationRequest, new LocationCallback() {

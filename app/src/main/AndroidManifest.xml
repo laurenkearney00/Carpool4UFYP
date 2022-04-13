@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Carpool4UFYP"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ViewTrips"
+            android:exported="false" />
+        <activity
             android:name=".ViewRatingsForDrivers"
             android:exported="false" />
         <activity

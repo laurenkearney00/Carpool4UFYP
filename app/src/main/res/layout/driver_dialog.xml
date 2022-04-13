@@ -11,26 +11,26 @@
 
         <Button
             android:id="@+id/averageRating"
-            android:layout_width="130dp"
-            android:layout_height="99dp"
+            android:layout_width="104dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="View Current Average Rating for Driver"
+            android:text="View Average Rating"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
         <Button
             android:id="@+id/createRating"
             android:layout_width="99dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_margin="5dp"
-            android:text="Rate Driver"
+            android:text="Create Rating"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
         <Button
             android:id="@+id/driver"
-            android:layout_width="93dp"
-            android:layout_height="97dp"
+            android:layout_width="123dp"
+            android:layout_height="57dp"
             android:layout_margin="5dp"
             android:text="Return to Drivers"
             android:textAllCaps="false"

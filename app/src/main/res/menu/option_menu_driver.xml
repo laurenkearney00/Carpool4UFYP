@@ -5,7 +5,7 @@
         android:id="@+id/weatherUpdate"
         android:icon="@drawable/sun_icon"
         android:orderInCategory="80"
-        android:title="View Current Weather"
+        android:title="View current weather"
         app:showAsAction="always" />
     <item
         android:id="@+id/displayCar"
@@ -16,16 +16,21 @@
     <item
         android:id="@+id/locationsettings"
         android:orderInCategory="60"
-        android:title="Location Settings"
+        android:title="View Location Settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/viewTraffic"
         android:orderInCategory="60"
-        android:title="View Real Time Traffic on Map"
+        android:title="View Real Time Traffic"
         app:showAsAction="never" />
     <item
         android:id="@+id/ratingResult"
         android:orderInCategory="60"
         android:title="View Average Rating"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/viewTrips"
+        android:orderInCategory="60"
+        android:title="View Trips"
         app:showAsAction="never" />
 </menu>

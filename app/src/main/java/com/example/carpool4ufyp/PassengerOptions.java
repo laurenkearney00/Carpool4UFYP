@@ -71,11 +71,6 @@ public class PassengerOptions extends AppCompatActivity {
             Intent intent = new Intent(this, DisplayFavouriteDrivers.class);
             startActivity(intent);
         }
-        if (item.getItemId() == R.id.makePayment) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this, Payment.class);
-            startActivity(intent);
-        }
         if (item.getItemId() == R.id.viewPassengerBookings) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, ViewPassengerBookings.class);

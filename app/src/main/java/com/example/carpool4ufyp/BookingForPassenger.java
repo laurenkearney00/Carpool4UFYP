@@ -114,8 +114,9 @@ public class BookingForPassenger extends AppCompatActivity implements View.OnCli
             String driverID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             Intent intent = getIntent();
             passengerID = intent.getStringExtra(MessagePassenger.KEY);
+            String status = "Unpaid";
 
-            Booking booking = new Booking(driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID);
+            Booking booking = new Booking(driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID, bookingID, status);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(passengerID).child("Bookings")
                     .child(bookingID)

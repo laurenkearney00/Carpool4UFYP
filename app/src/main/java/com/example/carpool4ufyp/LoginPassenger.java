@@ -17,6 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginPassenger extends AppCompatActivity implements View.OnClickListener{
 
@@ -26,6 +32,10 @@ public class LoginPassenger extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
+
+    private FirebaseUser user;
+    private DatabaseReference reference;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +103,6 @@ public class LoginPassenger extends AppCompatActivity implements View.OnClickLis
             editTextPassword.requestFocus();
             return;
         }
-
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -108,6 +117,8 @@ public class LoginPassenger extends AppCompatActivity implements View.OnClickLis
                 }
             }
         });
+
+
     }
 
 

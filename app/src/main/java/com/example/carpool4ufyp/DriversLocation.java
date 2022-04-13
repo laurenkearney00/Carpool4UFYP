@@ -112,7 +112,7 @@ public class DriversLocation extends AppCompatActivity {
                     0);
         }
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(60000); //updates every minute
+        mLocationRequest.setInterval(600000); //updates every 10 minutes
         //mLocationRequest.setInterval(10000);
         //mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

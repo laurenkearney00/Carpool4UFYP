@@ -2,39 +2,35 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/viewFavouriteDrivers"
+        android:icon="@drawable/icons8_popular_man_96"
+        android:orderInCategory="80"
+        android:title="View Favourited Drivers"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/weatherUpdate"
         android:icon="@drawable/sun_icon"
-        android:orderInCategory="80"
+        android:orderInCategory="60"
         android:title="View Current Weather"
         app:showAsAction="always" />
     <item
         android:id="@+id/map"
-        android:orderInCategory="80"
-        android:title="View Drivers on Map"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/rateDriver"
         android:orderInCategory="60"
-        android:title="Rate Drivers"
+        android:title="View Drivers On Map"
         app:showAsAction="never" />
     <item
         android:id="@+id/viewTraffic"
         android:orderInCategory="60"
-        android:title="View Real Time Traffic on Map"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/viewFavouriteDrivers"
-        android:orderInCategory="60"
-        android:title="View Favourited Drivers"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/makePayment"
-        android:orderInCategory="60"
-        android:title="Make Payment"
+        android:title="View Real Time Traffic"
         app:showAsAction="never" />
     <item
         android:id="@+id/viewPassengerBookings"
         android:orderInCategory="60"
         android:title="View Bookings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/rateDriver"
+        android:orderInCategory="60"
+        android:title="Rate Drivers"
         app:showAsAction="never" />
 </menu>

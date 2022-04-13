@@ -74,7 +74,7 @@ public class WeatherUpdate extends AppCompatActivity {
                         0);
             }
             mLocationRequest = new LocationRequest();
-            mLocationRequest.setInterval(60000);
+            mLocationRequest.setInterval(600000);
             //mLocationRequest.setFastestInterval(5000);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
             mFusedLocationClient = new FusedLocationProviderClient(getApplicationContext());

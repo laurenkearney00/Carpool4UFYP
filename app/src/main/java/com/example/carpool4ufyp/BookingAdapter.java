@@ -20,7 +20,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
     public static final String MESSAGE_KEY5 ="destination";
     public static final String MESSAGE_KEY6 ="date";
     public static final String MESSAGE_KEY7 ="pickupTime";
-    public static final String MESSAGE_KEY8 ="price";
+    public static final String MESSAGE_KEY8 ="total";
     public static final String MESSAGE_KEY9 ="driverID";
     public static final String MESSAGE_KEY10 ="passengerID";
     public static final String MESSAGE_KEY11 ="bookingID";
@@ -55,13 +55,14 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
         @Override
         public void onClick(View view) {
             int position = this.getLayoutPosition();
-            String driver = list.get(position).getDriver();
-            String passenger = list.get(position).getPassenger();
+            String driver = list.get(position).getDriverName();
+            String passenger = list.get(position).getPassengerName();
             String meetingPoint = list.get(position).getMeetingPoint();
             String destination = list.get(position).getDestination();
             String date = list.get(position).getDate();
             String pickupTime = list.get(position).getPickupTime();
-            String price = list.get(position).getPrice();
+            double price = list.get(position).getPrice();
+            String total = String.valueOf(price);
             String driverID = list.get(position).getDriverID();
             String passengerID = list.get(position).getPassengerID();
             String bookingID = list.get(position).getBookingID();
@@ -74,7 +75,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
             intent.putExtra(MESSAGE_KEY5, destination);
             intent.putExtra(MESSAGE_KEY6, date);
             intent.putExtra(MESSAGE_KEY7, pickupTime);
-            intent.putExtra(MESSAGE_KEY8, price);
+            intent.putExtra(MESSAGE_KEY8, total);
             intent.putExtra(MESSAGE_KEY9, driverID);
             intent.putExtra(MESSAGE_KEY10, passengerID);
             intent.putExtra(MESSAGE_KEY11, bookingID);
@@ -113,14 +114,16 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
 
 
         Booking booking = list.get(position);
+        double price = booking.getPrice();
+        String total = String.valueOf(price);
 
-        holder.textView1.setText("Driver name: " + booking.getDriver());
-        holder.textView2.setText("Passenger name: " + booking.getPassenger());
+        holder.textView1.setText("Driver name: " + booking.getDriverName());
+        holder.textView2.setText("Passenger name: " + booking.getPassengerName());
         holder.textView3.setText("Meeting point: " + booking.getMeetingPoint());
         holder.textView4.setText("Destination: " + booking.getDestination());
         holder.textView5.setText("Date: " + booking.getDate());
         holder.textView6.setText("Pickup time: " + booking.getPickupTime());
-        holder.textView7.setText("Price: €" + booking.getPrice());
+        holder.textView7.setText("Price: €" + total);
         holder.textView8.setText("Status: " + booking.getStatus());
 
 
@@ -130,7 +133,6 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.MyViewHo
     @Override
     public int getItemCount() {
         return list.size();
-        //return mylistvalues.size();
     }
 
 

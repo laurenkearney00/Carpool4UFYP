@@ -23,7 +23,7 @@ public class DisplayCar extends AppCompatActivity {
 
 
     private ArrayList<Car> list = new ArrayList<>();
-    DatabaseReference databaseReference, DataRef;
+    DatabaseReference databaseReference;
     ProgressDialog progressDialog;
     RecyclerView mRecyclerView;
     public static CarAdapter myAdapter;

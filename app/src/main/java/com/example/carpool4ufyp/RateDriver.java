@@ -24,10 +24,10 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
 
     private TextView ratingDisplayTextView;
     private RatingBar ratingRatingBar;
-    String receiver;
+    String receiverID;
     DatabaseReference reference, databaseReference;
     String starID;
-    String passenger = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    String passengerID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String driverName;
     String favouriteDriverID;
     private Button addButton;
@@ -49,10 +49,10 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
         ratingRatingBar = (RatingBar) findViewById(R.id.rating_bar);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(DisplayDrivers.KEY);
+        receiverID = intent.getStringExtra(DisplayDrivers.KEY);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
-        reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(receiverID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //every time change data the event listener will execute ondatachangemethod
                 UserDriver userDriver = snapshot.getValue(UserDriver.class);
@@ -68,14 +68,14 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
                 Toast.makeText(RateDriver.this, "Something wrong happened!", Toast.LENGTH_LONG).show();
             }
         });
-        reference = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiver).child("Ratings");
+        reference = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiverID).child("Ratings");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Rating aRating = dataSnapshot.getValue(Rating.class);
-                    if (aRating.getReceiver().equals(receiver) && aRating.getSender().equals(passenger)) {
+                    if (aRating.getReceiverID().equals(receiverID) && aRating.getSenderID().equals(passengerID)) {
                         String rating = aRating.getRating();
                         starID = aRating.getRatingID();
                         submitButton.setText("Submitted Rating");
@@ -92,14 +92,14 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
             }
         });
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users: Passengers").child(passenger).child("FavouriteDrivers");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users: Passengers").child(passengerID).child("FavouriteDrivers");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     FavouriteDriver driver = dataSnapshot.getValue(FavouriteDriver.class);
-                    if (driver.getDriverID().equals(receiver)) {
+                    if (driver.getDriverID().equals(receiverID)) {
                         addButton.setText("Added Driver");
                     }
                 }
@@ -119,9 +119,9 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromTouch) {
                 String rate = String.valueOf(rating);
-                String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Rating aRating = new Rating(rate, receiver, sender, starID);
-                FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Ratings")
+                String senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Rating aRating = new Rating(rate, receiverID, senderID, starID);
+                FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Ratings")
                         .child(starID)
                         .setValue(aRating).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -158,10 +158,10 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
             if (ratingDisplayTextView.getText().toString().equals("Your rating will appear here")) {
                 String rate = String.valueOf(ratingRatingBar.getRating());
                 ratingDisplayTextView.setText("Rating given to driver is " + rate);
-                String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Rating aRating = new Rating(rate, receiver, sender, starID);
+                String senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Rating aRating = new Rating(rate, receiverID, senderID, starID);
 
-                FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Ratings")
+                FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Ratings")
                         .child(starID)
                         .setValue(aRating).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -187,8 +187,8 @@ public class RateDriver extends AppCompatActivity implements View.OnClickListene
             } else {
                 DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference().child("FavouriteDrivers");
                 favouriteDriverID = fireDB.push().getKey();
-                FavouriteDriver driver = new FavouriteDriver(driverName, receiver);
-                FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(passenger).child("FavouriteDrivers")
+                FavouriteDriver driver = new FavouriteDriver(driverName, receiverID);
+                FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(passengerID).child("FavouriteDrivers")
                         .child(favouriteDriverID)
                         .setValue(driver).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

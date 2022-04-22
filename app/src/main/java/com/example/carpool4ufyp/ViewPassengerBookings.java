@@ -112,7 +112,7 @@ public class ViewPassengerBookings extends AppCompatActivity {
         ArrayList<Booking> filteredList = new ArrayList<>();
 
         for (Booking booking : list) {
-            if (booking.getDriver().toLowerCase().contains(text.toLowerCase())) {
+            if (booking.getDriverName().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(booking);
             }
         }

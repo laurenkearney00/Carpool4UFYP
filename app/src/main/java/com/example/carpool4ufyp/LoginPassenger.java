@@ -33,10 +33,6 @@ public class LoginPassenger extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
 
-    private FirebaseUser user;
-    private DatabaseReference reference;
-    private String userID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +106,6 @@ public class LoginPassenger extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-                    //redirect to user profile
                     startActivity(new Intent(LoginPassenger.this, PassengerOptions.class));
                 }else{
                     Toast.makeText(LoginPassenger.this, "Failed to login! Please check your credentials", Toast.LENGTH_LONG).show();

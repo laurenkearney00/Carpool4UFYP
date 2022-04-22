@@ -41,8 +41,8 @@ public class DriverHomeFragment extends Fragment {
     private static final String CHANNEL_DES = "Des";
     DatabaseReference databaseReference;
     private String text;
-    private String sender;
-    private String passenger;
+    private String senderID;
+    private String passengerID;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -139,8 +139,8 @@ public class DriverHomeFragment extends Fragment {
                     Notification notification = dataSnapshot.getValue(Notification.class);
 
                     text = notification.getMessage();
-                    sender = notification.getSender();
-                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(sender);
+                    senderID = notification.getSender();
+                    databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(senderID);
 
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -148,17 +148,17 @@ public class DriverHomeFragment extends Fragment {
                             UserPassenger userProfile = snapshot.getValue(UserPassenger.class);
 
                             if (userProfile != null) {
-                                passenger = userProfile.fullName;
+                                passengerID = userProfile.fullName;
 // create pending intent
                                 Intent intent = new Intent(getActivity().getApplicationContext(), MessagePassenger.class);
-                                intent.putExtra(KEY1, sender);
+                                intent.putExtra(KEY1, senderID);
                                 PendingIntent pendingIntent = PendingIntent.getActivity(getActivity().getApplicationContext(),
                                         0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 // in case there is no pending intent/action, remove setContentIntent
                                 NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity().getApplicationContext(),
                                         CHANNEL_ID)
                                         .setSmallIcon(android.R.drawable.stat_notify_chat)
-                                        .setContentTitle(passenger)
+                                        .setContentTitle(passengerID)
                                         .setContentText(text)
                                         .setAutoCancel(true)
                                         .setContentIntent(pendingIntent);

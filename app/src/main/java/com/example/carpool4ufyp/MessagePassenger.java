@@ -44,7 +44,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
     private ImageView messageButton;
     private EditText messageString;
     private ProgressBar progressBar;
-    String receiver;
+    String receiverID;
     public ArrayList<Message> list = new ArrayList<>();
     DatabaseReference databaseReference, reference;
     ProgressDialog progressDialog;
@@ -56,7 +56,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
     AlertDialog dialog;
     Button remove, cancel;
     private String messageID;
-    private String sender;
+    private String senderID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +78,10 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(DriverHomeFragment.KEY1);
+        receiverID = intent.getStringExtra(DriverHomeFragment.KEY1);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Passengers");
-        reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(receiverID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //every time change data the event listener will execute ondatachangemethod
                 UserPassenger userPassenger = snapshot.getValue(UserPassenger.class);
@@ -120,9 +120,9 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         progressDialog.setMessage("Loading Data from Firebase Database");
 
         progressDialog.show();
-        sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(sender).child("Messages");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(senderID).child("Messages");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -133,7 +133,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
                     Message message = dataSnapshot.getValue(Message.class);
 
-                    if (message.getReceiver().equals(receiver) || message.getSender().equals(receiver)) {
+                    if (message.getReceiverID().equals(receiverID) || message.getSenderID().equals(receiverID)) {
 
                         list.add(message);
                     }
@@ -192,8 +192,8 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
     }
 
     private void delete() {
-        sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(sender).child("Messages").child(messageID);
+        senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(senderID).child("Messages").child(messageID);
         fireDB.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {      // Write was successful!
@@ -240,9 +240,9 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
             DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
             String notificationID = DB.push().getKey();
-            Notification notification = new Notification(text, receiver, sender, timestamp);
+            Notification notification = new Notification(text, receiverID, sender, timestamp);
 
-            FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(receiver).child("Notifications")
+            FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(receiverID).child("Notifications")
                     .child(notificationID)
                     .setValue(notification).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -256,7 +256,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
             });
 
-            Message message = new Message(text, receiver, sender, timestamp, messageID);
+            Message message = new Message(text, receiverID, sender, timestamp, messageID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(sender).child("Messages")
                     .child(messageID)
@@ -295,7 +295,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         if (item.getItemId() == R.id.bookingForPassenger) {
             //do suitable action, e.g.start an activity
             Intent i = new Intent(this, BookingForPassenger.class);
-            i.putExtra(KEY, receiver);
+            i.putExtra(KEY, receiverID);
             startActivity(i);
         }
         return true;

@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ViewRatingsForDrivers extends AppCompatActivity {
 
     private String driverID, driverName;
-    private DatabaseReference databaseReference, dataRef, reference;
+    private DatabaseReference databaseReference, dataRef;
 
 
     @Override

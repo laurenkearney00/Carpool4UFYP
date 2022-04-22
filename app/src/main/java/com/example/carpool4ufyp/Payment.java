@@ -88,6 +88,7 @@ public class Payment extends AppCompatActivity {
         amountText = findViewById(R.id.amount_id);
         amountText.setText("Total: €" + total);
         cardInputWidget = findViewById(R.id.cardInputWidget);
+        cardInputWidget.setPostalCodeEnabled(false);
         payButton = findViewById(R.id.payButton);
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Transaction in progress");

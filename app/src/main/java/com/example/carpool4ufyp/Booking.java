@@ -2,25 +2,26 @@ package com.example.carpool4ufyp;
 
 public class Booking {
 
-    public String driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID, bookingID, status;
+    public String driverName, passengerName, meetingPoint, destination, date, pickupTime, driverID, passengerID, bookingID, status;
+    public double price;
     public Booking(){
 
     }
 
-    public String getDriver() {
-        return driver;
+    public String getDriverName() {
+        return driverName;
     }
 
-    public void setDriver(String driver) {
-        this.driver = driver;
+    public void setDriver(String driverName) {
+        this.driverName = driverName;
     }
 
-    public String getPassenger() {
-        return passenger;
+    public String getPassengerName() {
+        return passengerName;
     }
 
-    public void setPassenger(String passenger) {
-        this.passenger = passenger;
+    public void setPassengerName(String passengerName) {
+        this.passengerName = passengerName;
     }
 
     public String getMeetingPoint() {
@@ -55,11 +56,11 @@ public class Booking {
         this.pickupTime = pickupTime;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -95,9 +96,9 @@ public class Booking {
         this.status = status;
     }
 
-    public Booking(String driver, String passenger, String meetingPoint, String destination, String date, String pickupTime, String price, String driverID, String passengerID, String bookingID, String status){
-        this.driver = driver;
-        this.passenger = passenger;
+    public Booking(String driverName, String passengerName, String meetingPoint, String destination, String date, String pickupTime, double price, String driverID, String passengerID, String bookingID, String status){
+        this.driverName = driverName;
+        this.passengerName = passengerName;
         this.meetingPoint = meetingPoint;
         this.destination = destination;
         this.date = date;

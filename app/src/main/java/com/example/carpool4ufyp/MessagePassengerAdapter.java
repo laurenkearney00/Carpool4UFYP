@@ -69,12 +69,12 @@ import java.util.ArrayList;
             // -get element from your dataset at this position
             // -replace the contents of the view with that element
 
-            String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             Message message = list.get(position);
 
             holder.textView.setText("  " + message.getMessage() + "\n" + "  " + message.getTimestamp());
 
-            if(message.getSender().equals(sender)) {
+            if(message.getSenderID().equals(senderID)) {
                 holder.textView.setBackgroundResource(R.drawable.sender);
                 holder.textView.setTextColor(Color.BLACK);
 
@@ -111,8 +111,8 @@ import java.util.ArrayList;
 
         @Override
         public int getItemViewType(int position) {
-            String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            if(list.get(position).getSender().equals(sender)){
+            String senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            if(list.get(position).getSenderID().equals(senderID)){
                 return MSG_TYPE_LEFT;
             }
             else {

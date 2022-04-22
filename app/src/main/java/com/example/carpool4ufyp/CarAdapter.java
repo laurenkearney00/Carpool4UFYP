@@ -48,18 +48,20 @@ public class CarAdapter extends RecyclerView.Adapter<CarAdapter.MyViewHolder> {
         @Override
         public void onClick(View view) {
             int position = this.getLayoutPosition();
-            String licenceNumber = list.get(position).getLicenceNumber();
+            double licenceNumber = list.get(position).getLicenceNumber();
+            String licenceNum = String.valueOf(licenceNumber);
             String registrationNumber = list.get(position).getRegistrationNumber();
-            String numberOfSeats = list.get(position).getNumberOfSeats();
+            double numberOfSeats = list.get(position).getNumberOfSeats();
+            String seatsNum = String.valueOf(numberOfSeats);
             String licenceExpiration = list.get(position).getLicenceExpiration();
             String makeAndModel = list.get(position).getMakeAndModel();
             String colour = list.get(position).getColour();
             String carID = list.get(position).getCarID();
             Intent intent= new Intent(view.getContext(), ViewCarDetails.class);
-            intent.putExtra(MESSAGE_KEY1 , licenceNumber);
+            intent.putExtra(MESSAGE_KEY1 , licenceNum);
             intent.putExtra(MESSAGE_KEY2, position);
             intent.putExtra(MESSAGE_KEY3, registrationNumber);
-            intent.putExtra(MESSAGE_KEY4, numberOfSeats);
+            intent.putExtra(MESSAGE_KEY4, seatsNum);
             intent.putExtra(MESSAGE_KEY5, licenceExpiration);
             intent.putExtra(MESSAGE_KEY6, makeAndModel);
             intent.putExtra(MESSAGE_KEY7, colour);

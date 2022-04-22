@@ -49,12 +49,6 @@ public class PassengerOptions extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (item.getItemId() == R.id.map) {
-            //do suitable action, e.g.start an activity
-            Intent intent = new Intent(this, ViewDrivers.class);
-            startActivity(intent);
-        }
-
         if (item.getItemId() == R.id.rateDriver) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, DisplayDrivers.class);
@@ -74,6 +68,11 @@ public class PassengerOptions extends AppCompatActivity {
         if (item.getItemId() == R.id.viewPassengerBookings) {
             //do suitable action, e.g.start an activity
             Intent intent = new Intent(this, ViewPassengerBookings.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.mapDistance) {
+            //do suitable action, e.g.start an activity
+            Intent intent = new Intent(this, ViewDriversBasedOnLocation.class);
             startActivity(intent);
         }
         return true;

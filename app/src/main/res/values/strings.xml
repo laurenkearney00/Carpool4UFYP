@@ -11,4 +11,14 @@
     <string name="title_activity_view_traffic">ViewTraffic</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_view_drivers_based_on_location">ViewDriversBasedOnLocation</string>
+    <array name="kilometers">
+        <item>Show all drivers on map</item>
+        <item>Show all drivers within 5 km</item>
+        <item>Show all drivers within 10 km</item>
+        <item>Show all drivers within 15 km</item>
+        <item>Show all drivers within 20 km</item>
+        <item>Show all drivers within 25 km</item>
+        <item>Show all drivers within 30 km</item>
+    </array>
 </resources>

@@ -66,6 +66,8 @@ public class BookingForPassenger extends AppCompatActivity implements View.OnCli
         String pickupTime = editTextPickupTime.getText().toString().trim();
         String price = editTextPrice.getText().toString().trim();
 
+        double total = Double.parseDouble(price);
+
         if (driver.isEmpty()) {
             editTextDriverName.setError("Full name is required!");
             editTextDriverName.requestFocus();
@@ -116,7 +118,7 @@ public class BookingForPassenger extends AppCompatActivity implements View.OnCli
             passengerID = intent.getStringExtra(MessagePassenger.KEY);
             String status = "Unpaid";
 
-            Booking booking = new Booking(driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID, bookingID, status);
+            Booking booking = new Booking(driver, passenger, meetingPoint, destination, date, pickupTime, total, driverID, passengerID, bookingID, status);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(passengerID).child("Bookings")
                     .child(bookingID)

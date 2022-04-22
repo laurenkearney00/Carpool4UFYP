@@ -104,7 +104,6 @@ public class LoginDriver extends AppCompatActivity implements View.OnClickListen
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if(task.isSuccessful()){
-                    //redirect to user profile
                     mUser = mAuth.getCurrentUser();
                     startActivity(new Intent(LoginDriver.this, DriverOptions.class));
                 }else{

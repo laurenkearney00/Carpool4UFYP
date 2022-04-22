@@ -48,5 +48,6 @@ public class CurrentLocation {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
 }
 

@@ -2,8 +2,8 @@ package com.example.carpool4ufyp;
 
 public class Message {
     private String message;
-    private String sender;
-    private String receiver;
+    private String senderID;
+    private String receiverID;
     private String timestamp;
     private String messageID;
 
@@ -15,12 +15,12 @@ public class Message {
         return message;
     }
 
-    public String getSender() {
-        return sender;
+    public String getSenderID() {
+        return senderID;
     }
 
-    public String getReceiver() {
-        return receiver;
+    public String getReceiverID() {
+        return receiverID;
     }
 
     public String getMessageID() {
@@ -32,8 +32,8 @@ public class Message {
     }
 
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setSenderID(String senderID) {
+        this.senderID = senderID;
     }
 
     public String getTimestamp() {
@@ -44,18 +44,18 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
+    public void setReceiverID(String receiverID) {
+        this.receiverID = receiverID;
     }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public Message(String message, String receiver, String sender, String timestamp, String messageID) {
+    public Message(String message, String receiverID, String senderID, String timestamp, String messageID) {
         this.message = message;
-        this.receiver = receiver;
-        this.sender = sender;
+        this.receiverID = receiverID;
+        this.senderID = senderID;
         this.timestamp = timestamp;
         this.messageID = messageID;
     }

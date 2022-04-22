@@ -18,7 +18,7 @@ public class ViewFavouritedDriversDetails extends AppCompatActivity {
 
     private DatabaseReference reference, databaseReference;
     ProgressDialog progressDialog;
-    String receiver;
+    String receiverID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class ViewFavouritedDriversDetails extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(DisplayFavouriteDrivers.KEY);
+        receiverID = intent.getStringExtra(DisplayFavouriteDrivers.KEY);
 
         TextView nameText = (TextView) findViewById(R.id.name);
         TextView phoneNumberText = (TextView) findViewById(R.id.destination);
@@ -39,7 +39,7 @@ public class ViewFavouritedDriversDetails extends AppCompatActivity {
         TextView colourText = (TextView) findViewById(R.id.colour);
 
         //retrieve user details and updateUI
-        reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(receiverID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //every time change data the event listener will execute ondatachangemethod
                 UserDriver userDriver = snapshot.getValue(UserDriver.class);
@@ -65,7 +65,7 @@ public class ViewFavouritedDriversDetails extends AppCompatActivity {
 
         progressDialog.show();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Cars");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Cars");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,12 +74,14 @@ public class ViewFavouritedDriversDetails extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     Car cars = dataSnapshot.getValue(Car.class);
-                    String licenceNumber = cars.getLicenceNumber();
-                    licenceNumberText.setText("Licence Number: " + licenceNumber);
+                    int licenceNumber = cars.getLicenceNumber();
+                    String licenceNum = String.valueOf(licenceNumber);
+                    licenceNumberText.setText("Licence Number: " + licenceNum);
                     String registrationNumber = cars.getRegistrationNumber();
                     registrationNumberText.setText("Registration Number: " + registrationNumber);
-                    String numberOfSeats = cars.getNumberOfSeats();
-                    numberOfSeatsText.setText("Number of Seats: " + numberOfSeats);
+                    int numberOfSeats = cars.getNumberOfSeats();
+                    String seatsNum = String.valueOf(numberOfSeats);
+                    numberOfSeatsText.setText("Number of Seats: " + seatsNum);
                     String licenceExpiration = cars.getLicenceExpiration();
                     licenceExpirationText.setText("Licence Expiration: " + licenceExpiration);
                     String makeAndModel = cars.getMakeAndModel();

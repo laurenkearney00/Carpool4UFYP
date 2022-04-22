@@ -71,12 +71,13 @@
             android:textStyle="bold" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.stripe.android.view.CardInputWidget
         android:id="@+id/cardInputWidget"
-
-        android:layout_width="343dp"
-        android:layout_height="53dp"
+        android:layout_width="299dp"
+        android:layout_height="48dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="@+id/amountLayout"
         app:layout_constraintTop_toBottomOf="@+id/amountLayout" />
 

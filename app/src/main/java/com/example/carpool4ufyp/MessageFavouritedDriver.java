@@ -41,7 +41,7 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
     private ImageView messageButton;
     private EditText messageString;
     private ProgressBar progressBar;
-    String receiver;
+    String receiverID;
     public ArrayList<Message> list = new ArrayList<>();
     DatabaseReference databaseReference, reference;
     ProgressDialog progressDialog;
@@ -75,10 +75,10 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         Intent intent = getIntent();
-        receiver = intent.getStringExtra(DisplayFavouriteDrivers.KEY);
+        receiverID = intent.getStringExtra(DisplayFavouriteDrivers.KEY);
 
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
-        reference.child(receiver).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(receiverID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) { //every time change data the event listener will execute ondatachangemethod
                 UserDriver userDriver = snapshot.getValue(UserDriver.class);
@@ -118,7 +118,7 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
 
         progressDialog.show();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Messages");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -184,7 +184,7 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
     }
 
     private void delete() {
-        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiver).child("Messages").child(messageID);
+        DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference("Users: Drivers").child(receiverID).child("Messages").child(messageID);
         fireDB.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {      // Write was successful!
@@ -225,16 +225,16 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
 
             DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference().child("Messages");
             String messageID = fireDB.push().getKey();
-            String sender = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
             timestamp = simpleDateFormat.format(calendar.getTime());
 
             DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
             String notificationID = DB.push().getKey();
-            Notification notification = new Notification(text, receiver, sender, timestamp);
+            Notification notification = new Notification(text, receiverID, senderID, timestamp);
 
-            FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Notifications")
+            FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Notifications")
                     .child(notificationID)
                     .setValue(notification).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -248,9 +248,9 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
 
             });
 
-            Message message = new Message(text, receiver, sender, timestamp, messageID);
+            Message message = new Message(text, receiverID, senderID, timestamp, messageID);
 
-            FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiver).child("Messages")
+            FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Messages")
                     .child(messageID)
                     .setValue(message).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

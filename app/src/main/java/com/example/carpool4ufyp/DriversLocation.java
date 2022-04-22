@@ -130,26 +130,9 @@ public class DriversLocation extends AppCompatActivity {
 
         };
         mFusedLocationClient.requestLocationUpdates( mLocationRequest, mLocationCallback, null);
-        /*
-        mFusedLocationClient.requestLocationUpdates(mLocationRequest, new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                lat = locationResult.getLastLocation().getLatitude();
-                lng = locationResult.getLastLocation().getLongitude();
-                currentlocation = new LatLng(lat, lng);
-                saveCurrentLocation(currentlocation);
-            }
-        }, null);
-         */
     }
 
     public void saveCurrentLocation(LatLng latlng) {
-        //DatabaseReference fireDB = FirebaseDatabase.getInstance().getReference().child("CurrentLocation");
-        //String locationID = fireDB.push().getKey();
-
-        //FirebaseUser location = mAuth1.getCurrentUser();
-        //timestamp = "25/12/2021"; //date and time
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy hh:mm:ss a");
         timestamp = simpleDateFormat.format(calendar.getTime());
@@ -166,21 +149,7 @@ public class DriversLocation extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if (task.isSuccessful()) {
-                    //Toast.makeText(DriversLocation.this, "Location successful", Toast.LENGTH_LONG).show();
-/*
-                    switch1.setChecked(sharedPreferences.getBoolean(SWITCH1, false));
-                    final SharedPreferences.Editor editor = sharedPreferences.edit();
-                    switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (!isChecked) {
-                    editor.putBoolean(SWITCH1, false);
-                    locationManager.removeUpdates(locationListener);
-                    }
-                    else {
-                        getLocation();
-                    }
- */
+
                 } else {
                     Toast.makeText(DriversLocation.this, "Failed!", Toast.LENGTH_LONG).show();
                 }
@@ -189,9 +158,6 @@ public class DriversLocation extends AppCompatActivity {
 
 
     }
-
-
-
 
     // Store the data in the SharedPreference in the onPause() method
     // When the user closes the application onPause() will be called and data will be stored
@@ -213,4 +179,3 @@ public class DriversLocation extends AppCompatActivity {
 
     }
 }
-

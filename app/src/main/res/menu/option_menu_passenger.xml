@@ -14,9 +14,9 @@
         android:title="View Current Weather"
         app:showAsAction="always" />
     <item
-        android:id="@+id/map"
+        android:id="@+id/mapDistance"
         android:orderInCategory="60"
-        android:title="View Drivers On Map"
+        android:title="View Drivers on Map"
         app:showAsAction="never" />
     <item
         android:id="@+id/viewTraffic"

@@ -103,13 +103,10 @@ public class ViewCarDetails extends AppCompatActivity implements View.OnClickLis
         String makeAndModelString = makeAndModelEditText.getText().toString();
         String colourString = colourEditText.getText().toString();
 
-        int licenceNum = Integer.parseInt(licenceNumberString);
-        int seatsNum = Integer.parseInt(numberOfSeatsString);
-
         Car car = new Car();
-        car.setLicenceNumber(licenceNum);
+        car.setLicenceNumber(licenceNumberString);
         car.setRegistrationNumber(registrationNumberString);
-        car.setNumberOfSeats(seatsNum);
+        car.setNumberOfSeats(numberOfSeatsString);
         car.setLicenceExpiration(licenceExpirationString);
         car.setMakeAndModel(makeAndModelString);
         car.setColour(colourString);

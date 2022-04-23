@@ -63,8 +63,8 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_passenger);
 
-        remove = (Button) findViewById(R.id.profile);
-        cancel = (Button) findViewById(R.id.message);
+        remove = (Button) findViewById(R.id.dMessage);
+        cancel = (Button) findViewById(R.id.cMessage);
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -169,8 +169,8 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
                 messageID = message.getMessageID();
 
-                remove = view.findViewById(R.id.profile);
-                cancel = view.findViewById(R.id.message);
+                remove = view.findViewById(R.id.dMessage);
+                cancel = view.findViewById(R.id.cMessage);
 
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -240,7 +240,7 @@ public class MessagePassenger extends AppCompatActivity implements View.OnClickL
 
             DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
             String notificationID = DB.push().getKey();
-            Notification notification = new Notification(text, receiverID, sender, timestamp);
+            Notification notification = new Notification(text, receiverID, sender, timestamp, notificationID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(receiverID).child("Notifications")
                     .child(notificationID)

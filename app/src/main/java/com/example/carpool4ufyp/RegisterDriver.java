@@ -48,10 +48,10 @@ public class RegisterDriver extends AppCompatActivity implements View.OnClickLis
         registerUser.setOnClickListener(this);
 
         editTextFullName = (EditText) findViewById(R.id.nameOfDriver);
-        editTextDateOfBirth = (EditText) findViewById(R.id.passengerName);
-        editTextEmail = (EditText) findViewById(R.id.meetingPoint);
-        editTextPhoneNumber = (EditText) findViewById(R.id.destination);
-        editTextPassword = (EditText) findViewById(R.id.date);
+        editTextDateOfBirth = (EditText) findViewById(R.id.birth);
+        editTextEmail = (EditText) findViewById(R.id.emailtxt);
+        editTextPhoneNumber = (EditText) findViewById(R.id.pnum);
+        editTextPassword = (EditText) findViewById(R.id.passwordtxt);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }

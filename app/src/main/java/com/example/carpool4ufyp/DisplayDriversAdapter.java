@@ -62,7 +62,7 @@ public class DisplayDriversAdapter extends RecyclerView.Adapter<DisplayDriversAd
         // -get element from your dataset at this position
         // -replace the contents of the view with that element
         UserDriver userDriver = list.get(position);
-        holder.textView1.setText(userDriver.getFullName());
+        holder.textView1.setText(userDriver.getFullName() +  "\n"  + userDriver.getPhoneNumber());
 
         holder.textView1.setOnClickListener(new View.OnClickListener() {
             @Override

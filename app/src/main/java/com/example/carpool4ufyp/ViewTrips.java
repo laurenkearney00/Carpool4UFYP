@@ -112,7 +112,7 @@ public class ViewTrips extends AppCompatActivity {
         ArrayList<Trip> filteredList = new ArrayList<>();
 
         for (Trip trip : list) {
-            if (trip.getDriver().toLowerCase().contains(text.toLowerCase())) {
+            if (trip.getPassenger().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(trip);
             }
         }

@@ -5,9 +5,18 @@ public class Notification {
     private String senderID;
     private String receiverID;
     private String timestamp;
+    private String notificationID;
 
     public Notification(){
 
+    }
+
+    public void setNotificationID(String notificationID) {
+        this.notificationID = notificationID;
+    }
+
+    public String getNotificationID() {
+        return notificationID;
     }
 
     public String getMessage() {
@@ -42,11 +51,12 @@ public class Notification {
         this.message = message;
     }
 
-    public Notification(String message, String receiverID, String senderID, String timestamp) {
+    public Notification(String message, String receiverID, String senderID, String timestamp, String notificationID) {
         this.message = message;
         this.receiverID = receiverID;
         this.senderID = senderID;
         this.timestamp = timestamp;
+        this.notificationID = notificationID;
     }
 
 

@@ -139,7 +139,7 @@ public class DriverHomeFragment extends Fragment {
                     Notification notification = dataSnapshot.getValue(Notification.class);
 
                     text = notification.getMessage();
-                    senderID = notification.getSender();
+                    senderID = notification.getSenderID();
                     databaseReference = FirebaseDatabase.getInstance().getReference().child("Users: Passengers").child(senderID);
 
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

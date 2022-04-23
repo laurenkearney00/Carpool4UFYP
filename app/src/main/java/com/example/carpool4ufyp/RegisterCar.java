@@ -155,10 +155,8 @@ public class RegisterCar extends AppCompatActivity implements View.OnClickListen
             FirebaseUser aCar = mAuth1.getCurrentUser();
 
             String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            int licenceNum = Integer.parseInt(licenceNumber);
-            int seatsNum = Integer.parseInt(numberOfSeats);
 
-            Car car = new Car(licenceNum, registrationNumber, seatsNum, licenceExpiration, makeAndModel, colour, userID, carID);
+            Car car = new Car(licenceNumber, registrationNumber, numberOfSeats, licenceExpiration, makeAndModel, colour, userID, carID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(userID).child("Cars")
                     .child(carID)

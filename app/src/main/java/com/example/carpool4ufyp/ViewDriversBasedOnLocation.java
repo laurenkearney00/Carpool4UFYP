@@ -179,6 +179,7 @@ public class ViewDriversBasedOnLocation extends FragmentActivity implements OnMa
                 //Create an array of markers
                 int size = (int) dataSnapshot.getChildrenCount(); //
                 Marker[] allMarkers = new Marker[size];
+                Marker[] seeMarkers = new Marker[size];
                 mMap.clear();   //Assuming you're using mMap
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //Specify your model class here

@@ -41,8 +41,8 @@ public class LoginDriver extends AppCompatActivity implements View.OnClickListen
         signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
 
-        editTextEmail = (EditText) findViewById(R.id.meetingPoint);
-        editTextPassword = (EditText) findViewById(R.id.date);
+        editTextEmail = (EditText) findViewById(R.id.eAddress);
+        editTextPassword = (EditText) findViewById(R.id.loginPassword);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 

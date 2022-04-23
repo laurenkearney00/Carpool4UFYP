@@ -74,14 +74,12 @@ public class ViewFavouritedDriversDetails extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     Car cars = dataSnapshot.getValue(Car.class);
-                    int licenceNumber = cars.getLicenceNumber();
-                    String licenceNum = String.valueOf(licenceNumber);
-                    licenceNumberText.setText("Licence Number: " + licenceNum);
+                    String licenceNumber = cars.getLicenceNumber();
+                    licenceNumberText.setText("Licence Number: " + licenceNumber);
                     String registrationNumber = cars.getRegistrationNumber();
                     registrationNumberText.setText("Registration Number: " + registrationNumber);
-                    int numberOfSeats = cars.getNumberOfSeats();
-                    String seatsNum = String.valueOf(numberOfSeats);
-                    numberOfSeatsText.setText("Number of Seats: " + seatsNum);
+                    String numberOfSeats = cars.getNumberOfSeats();
+                    numberOfSeatsText.setText("Number of Seats: " + numberOfSeats);
                     String licenceExpiration = cars.getLicenceExpiration();
                     licenceExpirationText.setText("Licence Expiration: " + licenceExpiration);
                     String makeAndModel = cars.getMakeAndModel();

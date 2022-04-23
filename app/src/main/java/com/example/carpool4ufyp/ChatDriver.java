@@ -61,8 +61,8 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_chat_driver);
 
 
-        remove = (Button) findViewById(R.id.profile);
-        cancel = (Button) findViewById(R.id.message);
+        remove = (Button) findViewById(R.id.dMessage);
+        cancel = (Button) findViewById(R.id.cMessage);
 
 
         mAuth1 = FirebaseAuth.getInstance();
@@ -165,8 +165,8 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
                 messageID = message.getMessageID();
 
-                remove = view.findViewById(R.id.profile);
-                cancel = view.findViewById(R.id.message);
+                remove = view.findViewById(R.id.dMessage);
+                cancel = view.findViewById(R.id.cMessage);
 
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -238,7 +238,7 @@ public class ChatDriver extends AppCompatActivity implements View.OnClickListene
 
             DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
             String notificationID = DB.push().getKey();
-            Notification notification = new Notification(text, receiverID, senderID, timestamp);
+            Notification notification = new Notification(text, receiverID, senderID, timestamp, notificationID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Notifications")
                     .child(notificationID)

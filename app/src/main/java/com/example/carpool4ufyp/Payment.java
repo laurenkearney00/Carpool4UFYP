@@ -277,7 +277,7 @@ public class Payment extends AppCompatActivity {
                 fireDB = FirebaseDatabase.getInstance().getReference().child("Trips");
                 String tripID = fireDB.push().getKey();
 
-                Trip trip = new Trip(driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID);
+                Trip trip = new Trip(driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID, tripID);
 
                 FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(driverID).child("Trips")
                         .child(tripID)

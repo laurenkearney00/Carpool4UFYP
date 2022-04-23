@@ -66,14 +66,14 @@ public class DriverProfileFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_driver_profile_fragment, container, false);
 
-        updateDetails = (Button) view.findViewById(R.id.pay_button);
+        updateDetails = (Button) view.findViewById(R.id.updateButton);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users: Drivers");
         userID = user.getUid();
 
         EditText nameEditText = (EditText) view.findViewById(R.id.name);
-        EditText phoneNumberEditText = (EditText) view.findViewById(R.id.destination);
+        EditText phoneNumberEditText = (EditText) view.findViewById(R.id.numberEt);
 
         //retrieve user details and updateUI
         reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -97,7 +97,7 @@ public class DriverProfileFragment extends Fragment{
         });
 
         EditText name = (EditText) view.findViewById(R.id.name);
-        EditText phoneNumber = (EditText) view.findViewById(R.id.destination);
+        EditText phoneNumber = (EditText) view.findViewById(R.id.numberEt);
 
         updateDetails.setOnClickListener(new View.OnClickListener() {
             @Override

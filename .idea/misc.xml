@@ -47,6 +47,7 @@
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location3.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location4.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_location5.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_login_driver.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_login_passenger.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_main4.xml" value="0.2171875" />
@@ -66,7 +67,7 @@
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_home_fragment.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_location.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_options.xml" value="0.22" />
-        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_profile_fragment.xml" value="0.2171875" />
+        <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_profile_fragment.xml" value="0.22" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passenger_requests.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_passengers_location.xml" value="0.2171875" />
         <entry key="..\:/Users/laure/AndroidStudioProjects/Carpool4UFYP/app/src/main/res/layout/activity_payment.xml" value="0.22" />

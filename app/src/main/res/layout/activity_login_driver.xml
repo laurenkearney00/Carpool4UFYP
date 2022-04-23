@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/meetingPoint"
+        android:id="@+id/eAddress"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/heading" />
 
     <EditText
-        android:id="@+id/date"
+        android:id="@+id/loginPassword"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -60,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/meetingPoint" />
+        app:layout_constraintTop_toBottomOf="@+id/eAddress" />
 
     <Button
         android:id="@+id/signIn"
@@ -75,7 +75,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date" />
+        app:layout_constraintTop_toBottomOf="@id/loginPassword" />
 
     <TextView
         android:id="@+id/forgotPassword"

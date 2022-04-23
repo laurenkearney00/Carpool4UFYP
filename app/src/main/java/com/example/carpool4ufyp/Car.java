@@ -2,17 +2,16 @@ package com.example.carpool4ufyp;
 
 public class Car {
 
-    public String registrationNumber, licenceExpiration, makeAndModel, colour, userID, carID;
-    public int licenceNumber, numberOfSeats;
+    public String registrationNumber, licenceExpiration, licenceNumber, numberOfSeats, makeAndModel, colour, userID, carID;
     public Car(){
 
     }
 
-    public int getLicenceNumber() {
+    public String getLicenceNumber() {
         return licenceNumber;
     }
 
-    public void setLicenceNumber(int licenceNumber) {
+    public void setLicenceNumber(String licenceNumber) {
         this.licenceNumber = licenceNumber;
     }
 
@@ -24,11 +23,11 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
-    public int getNumberOfSeats() {
+    public String getNumberOfSeats() {
         return numberOfSeats;
     }
 
-    public void setNumberOfSeats(int numberOfSeats) {
+    public void setNumberOfSeats(String numberOfSeats) {
         this.numberOfSeats = numberOfSeats;
     }
 
@@ -56,7 +55,7 @@ public class Car {
         this.colour = colour;
     }
 
-    public Car(int licenceNumber, String registrationNumber, int numberOfSeats, String licenceExpiration, String makeAndModel,String colour, String userID, String carID){
+    public Car(String licenceNumber, String registrationNumber, String numberOfSeats, String licenceExpiration, String makeAndModel,String colour, String userID, String carID){
         this.licenceNumber = licenceNumber;
         this.registrationNumber = registrationNumber;
         this.numberOfSeats = numberOfSeats;

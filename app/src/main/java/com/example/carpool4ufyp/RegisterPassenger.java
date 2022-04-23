@@ -39,11 +39,11 @@ public class RegisterPassenger extends AppCompatActivity implements View.OnClick
         registerUser = (Button) findViewById(R.id.registerUser);
         registerUser.setOnClickListener(this);
 
-        editTextFullName = (EditText) findViewById(R.id.nameOfDriver);
-        editTextDateOfBirth = (EditText) findViewById(R.id.passengerName);
-        editTextEmail = (EditText) findViewById(R.id.meetingPoint);
-        editTextPhoneNumber = (EditText) findViewById(R.id.destination);
-        editTextPassword = (EditText) findViewById(R.id.date);
+        editTextFullName = (EditText) findViewById(R.id.pname);
+        editTextDateOfBirth = (EditText) findViewById(R.id.dob);
+        editTextEmail = (EditText) findViewById(R.id.mail);
+        editTextPhoneNumber = (EditText) findViewById(R.id.telephone);
+        editTextPassword = (EditText) findViewById(R.id.passwordEdit);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 

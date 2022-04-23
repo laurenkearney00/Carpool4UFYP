@@ -2,9 +2,17 @@ package com.example.carpool4ufyp;
 
 public class Trip {
 
-    public String driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID;
+    public String driver, passenger, meetingPoint, destination, date, pickupTime, price, driverID, passengerID, tripID;
     public Trip(){
 
+    }
+
+    public String getTripID() {
+        return tripID;
+    }
+
+    public void setTripID(String tripID) {
+        this.tripID = tripID;
     }
 
     public String getDriver() {
@@ -79,7 +87,7 @@ public class Trip {
         this.passengerID = passengerID;
     }
 
-    public Trip(String driver, String passenger, String meetingPoint, String destination, String date, String pickupTime, String price, String driverID, String passengerID){
+    public Trip(String driver, String passenger, String meetingPoint, String destination, String date, String pickupTime, String price, String driverID, String passengerID, String tripID){
         this.driver = driver;
         this.passenger = passenger;
         this.meetingPoint = meetingPoint;
@@ -89,5 +97,6 @@ public class Trip {
         this.price = price;
         this.driverID = driverID;
         this.passengerID = passengerID;
+        this.tripID = tripID;
     }
 }

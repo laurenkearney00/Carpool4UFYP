@@ -60,8 +60,8 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_favourited_driver);
 
-        remove = (Button) findViewById(R.id.profile);
-        cancel = (Button) findViewById(R.id.message);
+        remove = (Button) findViewById(R.id.dMessage);
+        cancel = (Button) findViewById(R.id.cMessage);
 
         mAuth1 = FirebaseAuth.getInstance();
 
@@ -161,8 +161,8 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
 
                 messageID = message.getMessageID();
 
-                remove = view.findViewById(R.id.profile);
-                cancel = view.findViewById(R.id.message);
+                remove = view.findViewById(R.id.dMessage);
+                cancel = view.findViewById(R.id.cMessage);
 
                 remove.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -232,7 +232,7 @@ public class MessageFavouritedDriver extends AppCompatActivity implements View.O
 
             DatabaseReference DB = FirebaseDatabase.getInstance().getReference().child("Notifications");
             String notificationID = DB.push().getKey();
-            Notification notification = new Notification(text, receiverID, senderID, timestamp);
+            Notification notification = new Notification(text, receiverID, senderID, timestamp, notificationID);
 
             FirebaseDatabase.getInstance().getReference().child("Users: Drivers").child(receiverID).child("Notifications")
                     .child(notificationID)

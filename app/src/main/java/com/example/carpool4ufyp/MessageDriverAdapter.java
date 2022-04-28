@@ -73,7 +73,7 @@ public class MessageDriverAdapter extends RecyclerView.Adapter<MessageDriverAdap
         String senderID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Message message = list.get(position);
 
-        holder.textView.setText("  " + message.getMessage() + "\n" + "  " + message.getTimestamp());
+        holder.textView.setText("   " + message.getMessage() + "\n" + "  " + message.getTimestamp());
 
         if(message.getSenderID().equals(senderID)) {
             holder.textView.setBackgroundResource(R.drawable.sender);

@@ -7,12 +7,12 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\laure\.android\avd\Passenger.avd" />
+            <value value="C:\Users\laure\.android\avd\Driver.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-04-06T13:39:29.262917Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-04-26T21:00:43.465919400Z" />
     <multipleDevicesSelectedInDropDown value="true" />
     <targetsSelectedWithDialog>
       <Target>

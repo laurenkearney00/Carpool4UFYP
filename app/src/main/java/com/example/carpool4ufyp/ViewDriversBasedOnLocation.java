@@ -59,6 +59,7 @@ public class ViewDriversBasedOnLocation extends FragmentActivity implements OnMa
     private DatabaseReference passenger;
     private DatabaseReference reference;
     private String name;
+    private String phoneNumber;
     private String distance;
     private ImageButton search_address;
     private double result;
@@ -293,7 +294,8 @@ public class ViewDriversBasedOnLocation extends FragmentActivity implements OnMa
 
                 if (userProfile != null) {
                     name = userProfile.fullName;
-                    dialogBuilder.setTitle("Drivers Name: " + name);
+                    phoneNumber = userProfile.phoneNumber;
+                    dialogBuilder.setTitle("Driver Name: " + name + "\n" + "Phone Number: " + phoneNumber);
 
                     AlertDialog alertDialog = dialogBuilder.create();
                     alertDialog.show();
